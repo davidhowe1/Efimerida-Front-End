@@ -1,4 +1,3 @@
-import { ChevronDown, ChevronUp } from 'feather-icons-react/build/IconComponents'
 import { React, useEffect, useState } from 'react'
 import { ChevronDoubleDown, ChevronDoubleUp } from 'react-bootstrap-icons';
 

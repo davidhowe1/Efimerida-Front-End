@@ -25,7 +25,6 @@ function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn }) {
           alert('Invalid Credentials')
         }
       }).then(data => {
-        console.log(data)
         localStorage.setItem('token', data.token)
         setIsLoggedIn(!!localStorage.getItem('token'))
         hideLoginWindow()
