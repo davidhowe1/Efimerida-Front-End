@@ -335,14 +335,13 @@ article.post-card {
   margin: 20px 0px;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  transition: 0.2s;
+  transition: 0.1s;
 }
 
 article.post-card:hover {
-  transition: 0.2s;
-  transform: scale(100.5%);
+  transition: 0.1s;
   cursor: pointer;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
 }
 
 article.post-card .right-side {
@@ -353,7 +352,7 @@ article.post-card .right-side {
 }
 
 article.post-card .left-side {
-  padding: 10px 40px;
+  padding: 0px 30px;
 }
 
 article.post-card .left-side {
@@ -590,11 +589,12 @@ button.back-to-top:hover {
 
 section.new-post-form-container {
   position: fixed;
-  overflow-y: scroll;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
   height: fit-content;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 500px;
   background-color: white;
   border-radius: 10px;
