@@ -1,5 +1,5 @@
-import { Plus } from 'feather-icons-react/build/IconComponents'
 import React from 'react'
+import { Plus } from 'react-bootstrap-icons'
 
 function NewPostButton({ showNewPostForm }) {
   return (

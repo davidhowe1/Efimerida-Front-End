@@ -1,6 +1,5 @@
-import { ChevronLeft } from 'feather-icons-react/build/IconComponents'
 import { React, useState, useEffect, useRef } from 'react'
-import { Chat, Eye, Heart } from 'react-bootstrap-icons'
+import { Chat, ChevronLeft, Eye, Heart } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
 import Comments from '../components/Comments'
 import { useParams } from 'react-router-dom'
@@ -81,7 +80,7 @@ function Article({ fetchTagData, tags }) {
                     <h1>{article.post_title}</h1>
                     <Link to={`/${previousContentTab}`}>
                         <span>
-                            <ChevronLeft 
+                            <ChevronLeft
                             style={{height: '20px', width: '20px', padding: '0px 5px'}} />
                             <p>{`Back to ${previousContentTab}`}</p>
                         </span>

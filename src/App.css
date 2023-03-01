@@ -7,7 +7,7 @@ span p:hover svg {
   color: white;
 }
 
-button.new-post svg {
+button.new-post svg path {
   color: white;
 }
 
