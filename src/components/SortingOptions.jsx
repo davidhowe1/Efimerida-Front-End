@@ -1,5 +1,6 @@
 import { ChevronDown, ChevronUp } from 'feather-icons-react/build/IconComponents'
 import { React, useEffect, useState } from 'react'
+import { ChevronDoubleDown, ChevronDoubleUp } from 'react-bootstrap-icons';
 
 function SortingOptions({ showContent, showListOfUsers, showUsers, setPosts, 
   sortType, handleSortTypeChange }) {
@@ -35,7 +36,8 @@ function SortingOptions({ showContent, showListOfUsers, showUsers, setPosts,
       <p 
         onClick={toggleMoreOptions} 
         style={{cursor: "pointer"}}>More Options
-        {options ? <ChevronUp /> : <ChevronDown />}
+        {options ? <ChevronDoubleUp style={{marginLeft: "5px"}} />
+         : <ChevronDoubleDown style={{marginLeft: "5px"}}/>}
       </p>
 
       {options ?
