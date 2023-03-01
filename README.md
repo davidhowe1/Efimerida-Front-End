@@ -19,3 +19,16 @@ npm install
 yarn run dev
 ```
 Vite runs the localserver in port:5173 as standard so make sure to white list this url in the CORS_ORIGIN_WHITELIST --> http://localhost:5173 
+
+# PLEASE READ
+#### When starting out with the front end, please note that some tags have not yet been created on your server. If you try and make a new post and try to use some of the tags in the 'New Post' form, the server will respond with a 400 error and your post won't be added to the list.
+#### To fix this problem, go into the admin panel and create the tags manually before trying to tag any new posts:
+
+1. Add these tags in this order exactly:
+  1. Development
+  2. Marketing
+  3. Admin
+  4. Design
+  5. Management
+
+#### This will make sure that the tags are in the correct index order to correspond with the tags in the front end.
