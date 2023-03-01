@@ -1,10 +1,12 @@
 import { React, useState } from 'react'
 import { X } from 'react-bootstrap-icons'
+import { useNavigate } from 'react-router-dom'
 
 function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn }) {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigateToAllPosts = useNavigate()
 
   const loginUser = (event) => {
     event.preventDefault();
@@ -28,6 +30,7 @@ function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn }) {
         localStorage.setItem('token', data.token)
         setIsLoggedIn(!!localStorage.getItem('token'))
         hideLoginWindow()
+        navigateToAllPosts('/All')
       }).catch(err => {
         console.error('Error:', err)
       })
