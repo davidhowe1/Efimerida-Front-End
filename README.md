@@ -12,11 +12,11 @@ https://github.com/davidhowe1/Efimerida-Front-End.git
 #### Copy the repo to the Efimerida source folder (you should see blog, docs, and venv folders). 
 The default name of the folder is 'Efimerida-Front-End' but you can call it something else for simplicity, such as 'frontend' to make it easier to navigate using terminal commands.
 
-#### Navigate to Efimerida/Efimerida-Front-End and install dependencies and Vite by using terminal command:
+#### In your terminal, navigate to Efimerida/Efimerida-Front-End and install dependencies and Vite by using the command:
 ```
 npm install
 ```
-#### To run in localserver:
+#### To run in localserver, use the command:
 ```
 yarn run dev
 ```
