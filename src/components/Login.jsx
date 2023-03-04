@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import { X } from 'react-bootstrap-icons'
 import { useNavigate } from 'react-router-dom'
 
-function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn, handleAlertMessage }) {
+function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn, handleAlertMessage, setActiveTab }) {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -32,6 +32,7 @@ function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn, handleAlertMe
         handleAlertMessage('Welcome Back User')
         hideLoginWindow()
         navigateToAllPosts('/All')
+        setActiveTab('All')
       }).catch(err => {
         console.error('Error:', err)
       })
