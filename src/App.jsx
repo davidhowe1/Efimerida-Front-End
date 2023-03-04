@@ -103,6 +103,7 @@ function App() {
   const handleTabClick = (tab) => {
     setActiveTab(tab)
     localStorage.setItem('content-tab', tab)
+    scrollTo(0, 0)
   }
 
   const [newPostForm, setNewPostForm] = useState(false)
