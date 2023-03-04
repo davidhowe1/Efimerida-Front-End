@@ -193,7 +193,8 @@ section.home-screen .container {
 }
 
 section.home-screen .container h1 {
-  font-size: 2rem;
+  font-size: 1.8rem;
+  align-self: flex-start;
   margin: 0px 0px 20px;
 }
 
