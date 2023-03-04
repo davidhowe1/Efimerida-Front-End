@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Comments from '../components/Comments'
 import { useParams } from 'react-router-dom'
 
-function Article({ fetchTagData, tags }) {
+function Article({ fetchTagData, tags, handleAlertMessage }) {
     
     const [content, setContent] = useState([])
     const { id } = useParams();
@@ -45,6 +45,7 @@ function Article({ fetchTagData, tags }) {
             .then(response => {
                 if (response.ok) {
                     renderPostContent()
+                    handleAlertMessage('You liked this post.')
                 }
                 return response.json()
             })
@@ -102,6 +103,7 @@ function Article({ fetchTagData, tags }) {
                         token={token}
                         id={id}
                         handleCommentsLength={handleCommentsLength}
+                        handleAlertMessage={handleAlertMessage}
                         />
                         
                         <span>

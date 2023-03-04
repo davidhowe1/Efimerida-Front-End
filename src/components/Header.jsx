@@ -1,9 +1,10 @@
 import { React } from 'react'
 import { Link } from 'react-router-dom'
 import NewPostButton from './NewPostButton'
+import Searchbar from './Searchbar'
 
 function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handLogout, 
-  activeTab, handleTabClick, showNewPostForm }) {
+  activeTab, handleTabClick, showNewPostForm, setPosts }) {
 
   return (
     <>
@@ -48,6 +49,12 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handLogout,
                 </li>
               </Link>
             </ul>
+          </div>
+
+          <div className='search'>
+            <Searchbar 
+              setPosts={setPosts}
+            />
           </div>
 
           <div>

@@ -2,15 +2,15 @@ import { React } from 'react'
 import { Heart } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
 
-function Posts({ posts, users, showUsers, storePostContentForRender }) {
+function Posts({ posts, users, showUsers }) {
     
   return (
       <>
         {!showUsers ? posts.slice(0).reverse().map(post => (
-            <Link key={post.id} to={`/Article/post-id/${post.id}`}><article onClick={storePostContentForRender}
+            <Link key={post.id} to={`/Article/post-id/${post.id}`}><article
                 id={post.id} className='post-card'>
 
-            <div className='left-side'>
+            {posts.length > 0 ? <div className='left-side'>
                 <div>
                     <div className='author-and-time'>
                         <h4>
@@ -32,7 +32,7 @@ function Posts({ posts, users, showUsers, storePostContentForRender }) {
                         <Heart style={{padding: '0px 5px'}}/>
                     </p>
                 </div>
-            </div>
+            </div> : <h1>No posts found...</h1>}
     
             <div className='right-side'>
                 <img 

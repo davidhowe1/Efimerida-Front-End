@@ -1,6 +1,6 @@
 import { React, useEffect, useState, useRef, useLayoutEffect } from 'react'
 
-function Comments({ token, id, handleCommentsLength }) {
+function Comments({ token, id, handleCommentsLength, handleAlertMessage }) {
 
     const [comment, setComment] = useState('')
     const [commentsList, setCommentsList] = useState([])
@@ -36,6 +36,7 @@ function Comments({ token, id, handleCommentsLength }) {
         .then(response => {
             response.json()
             renderComments()
+            handleAlertMessage('Comment posted.')
         })
         .catch(error => console.log('Error: ', error))
         setComment('')

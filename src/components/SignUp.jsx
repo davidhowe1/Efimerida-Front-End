@@ -1,7 +1,7 @@
 import { React, useState} from 'react'
 import { X } from 'react-bootstrap-icons'
 
-function SignUp({ hideSignUpWindow, showLoginWindow }) {
+function SignUp({ hideSignUpWindow, showLoginWindow, handleAlertMessage }) {
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -29,7 +29,7 @@ function SignUp({ hideSignUpWindow, showLoginWindow }) {
         if (response.ok) {
           setSignupComplete(true)
         } else {
-          alert('Registration Failed. Please try again')
+          handleAlertMessage('Error: Registration Failed. Please try again.')
         }
       }).catch(err => {
         console.error('Error: ', err)
@@ -39,28 +39,28 @@ function SignUp({ hideSignUpWindow, showLoginWindow }) {
 
   const validateSignUp = () => {
     if (!username) {
-      alert('Please enter a username.');
+      handleAlertMessage('Error: Please enter a username.');
       return false;
     }
 
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
-      alert('Please enter a valid email address.');
+      handleAlertMessage('Error: Please enter a valid email address (example@example.com).');
       return false;
     }
 
     if (!password) {
-      alert('Please enter a password.');
+      handleAlertMessage('Error: Please enter a password.');
       return false;
     }
 
     if (password !== verifyPassword) {
-      alert('Passwords do not match.');
+      handleAlertMessage('Error: Please make sure your verified password matches.');
       return false;
     }
 
     if (!agreeToTerms) {
-      alert('Please agree to terms and conditions')
+      handleAlertMessage('Error: Please agree to terms and conditions')
       return false
     }
 

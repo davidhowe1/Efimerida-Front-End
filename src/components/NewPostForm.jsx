@@ -1,8 +1,8 @@
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { InfoSquareFill, X } from 'react-bootstrap-icons'
 
-function NewPostForm({ hideNewPostForm }) {
+function NewPostForm({ hideNewPostForm, handleAlertMessage }) {
 
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
@@ -55,10 +55,29 @@ function NewPostForm({ hideNewPostForm }) {
       },
       body: formData
     })
-    .then(response => response.json())
-    .then(data => {console.log('New post created: ', data)})
-    .catch(error => console.log('Error creating post: ', error))
-    hideNewPostForm()
+    .then(response => {
+      if (response.ok) {
+         return response.json()
+      } else {
+        handleAlertMessage('Error: There was a problem creating your post. Try again later.')
+        return response.json()
+      }
+    })
+    .then(data => {
+      const requiredProps = ['post_title', 'post_text', 'post_image', 'post_tags']
+      const isAllPropsPresent = requiredProps.every(prop => data.hasOwnProperty(prop))
+        
+      if (isAllPropsPresent) {
+        handleAlertMessage(`Your post '${data.post_title}' has been created!`)
+        hideNewPostForm()
+      } else {
+        handleAlertMessage('Error: There was a problem creating your post. Please make sure all fields are filled before submitting.')
+      }
+    })
+    .catch(error => {
+      handleAlertMessage('Error: There was a problem creating your post. Try again later.')
+      console.log('Error creating post: ', error)
+    })
   }
 
   const addParagraphTags = () => setText(`${text}<p>Text</p>\n`)

@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css'
 import Header from './components/Header';
 import Login from './components/Login'
@@ -12,6 +12,7 @@ import Admin from './pages/Admin'
 import Design from './pages/Design'
 import Article from './pages/Article';
 import NewPostForm from './components/NewPostForm'
+import AlertMessage from './components/AlertMessage';
 
 function App() {
 
@@ -40,6 +41,23 @@ function App() {
   const [sortType, setSortType] = useState('latest')
   const handleSortTypeChange = (type) => {
     setSortType(type)
+  }
+
+  const [alert, setAlert] = useState('')
+  const [alertIsActive, setAlertIsActive] = useState(false)
+  const timeoutIdRef = useRef(null)
+
+  const handleAlertMessage = (message) => {
+    setAlert(message)
+    setAlertIsActive(true)
+
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current)
+    }
+
+    timeoutIdRef.current = setTimeout(() => {
+      setAlertIsActive(false)
+    }, 5000)
   }
 
   let [posts, setPosts] = useState([])
@@ -81,12 +99,6 @@ function App() {
 
   const [tags, setTags] = useState([])
 
-  const storePostContentForRender = (e) => {
-    const post = e.currentTarget
-    const postId = parseInt(post.id)
-    localStorage.setItem('post-id', JSON.stringify(postId))
-  }
-
   const [activeTab, setActiveTab] = useState('All')
   const handleTabClick = (tab) => {
     setActiveTab(tab)
@@ -104,12 +116,15 @@ function App() {
           showSignUpWindow={showSignUpWindow}
           hideLoginWindow={hideLoginWindow}
           setIsLoggedIn={setIsLoggedIn}
+          alert={alert}
+          handleAlertMessage={handleAlertMessage}
         /> : ''}
 
       {signUp ? 
         <SignUp
           hideSignUpWindow={hideSignUpWindow}
           showLoginWindow={showLoginWindow}
+          handleAlertMessage={handleAlertMessage}
         /> : ''}
 
       {login | signUp ?
@@ -121,6 +136,7 @@ function App() {
         <>
         <NewPostForm 
           hideNewPostForm={hideNewPostForm}
+          handleAlertMessage={handleAlertMessage}
         />
         <DimBackground hideLoginOrSignUpWindow={hideNewPostForm}/>
         </>
@@ -136,6 +152,13 @@ function App() {
         handleTabClick={handleTabClick}
         newPostForm={newPostForm}
         showNewPostForm={showNewPostForm}
+        setPosts={setPosts}
+        handleAlertMessage={handleAlertMessage}
+      />
+
+      <AlertMessage 
+        alert={alert}
+        alertIsActive={alertIsActive}
       />
 
       {isLoggedIn ? 
@@ -151,7 +174,6 @@ function App() {
               showUsers={showUsers}
               showContent={showContent}
               showListOfUsers={showListOfUsers}
-              storePostContentForRender={storePostContentForRender}
               sortType={sortType}
               handleSortTypeChange={handleSortTypeChange}
               />}
@@ -167,7 +189,6 @@ function App() {
               showUsers={showUsers}
               showContent={showContent}
               showListOfUsers={showListOfUsers}
-              storePostContentForRender={storePostContentForRender}
               sortType={sortType}
               handleSortTypeChange={handleSortTypeChange}
               />}
@@ -183,7 +204,6 @@ function App() {
               showUsers={showUsers}
               showContent={showContent}
               showListOfUsers={showListOfUsers}
-              storePostContentForRender={storePostContentForRender}
               sortType={sortType}
               handleSortTypeChange={handleSortTypeChange}
               />}
@@ -199,7 +219,6 @@ function App() {
               showUsers={showUsers}
               showContent={showContent}
               showListOfUsers={showListOfUsers}
-              storePostContentForRender={storePostContentForRender}
               sortType={sortType}
               handleSortTypeChange={handleSortTypeChange}
               />}
@@ -210,6 +229,7 @@ function App() {
               tags={tags}
               fetchTagData={fetchTagData}
               options={options}
+              handleAlertMessage={handleAlertMessage}
               />}
             />
           </Routes> 

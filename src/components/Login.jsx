@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import { X } from 'react-bootstrap-icons'
 import { useNavigate } from 'react-router-dom'
 
-function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn }) {
+function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn, handleAlertMessage }) {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -24,11 +24,12 @@ function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn }) {
         if (response.ok) {
           return response.json()
         } else {
-          alert('Invalid Credentials')
+          handleAlertMessage('Error: Please make sure your email and password are correct')
         }
       }).then(data => {
         localStorage.setItem('token', data.token)
         setIsLoggedIn(!!localStorage.getItem('token'))
+        handleAlertMessage('Welcome Back User')
         hideLoginWindow()
         navigateToAllPosts('/All')
       }).catch(err => {
@@ -40,12 +41,12 @@ function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn }) {
   const validateLogin = () => {
     const emailRegex = /^\S+@\S+\.\S+$/
     if (!emailRegex.test(email)) {
-      alert('Please enter a valid email address.')
+      handleAlertMessage('Error: Please enter your email address.')
       return false
     }
 
     if (!password) {
-      alert('Please enter your password.')
+      handleAlertMessage('Error: Please enter your password.')
       return false
     }
     return true
