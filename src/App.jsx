@@ -118,6 +118,7 @@ function App() {
           hideLoginWindow={hideLoginWindow}
           setIsLoggedIn={setIsLoggedIn}
           alert={alert}
+          setActiveTab={setActiveTab}
           handleAlertMessage={handleAlertMessage}
         /> : ''}
 
