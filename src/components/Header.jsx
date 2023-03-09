@@ -45,6 +45,7 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handLogout,
           hideMobileMenu={hideMobileMenu}
           toggleTheme={toggleTheme}
           theme={theme}
+          mobileMenu={mobileMenu}
         />
       </div> : ''}
 
@@ -81,6 +82,7 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handLogout,
           <div className='search'>
             <Searchbar 
               setPosts={setPosts}
+              mobileMenu={mobileMenu}
             />
           </div>
 

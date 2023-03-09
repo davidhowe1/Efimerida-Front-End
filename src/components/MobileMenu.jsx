@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Searchbar from './Searchbar'
 
 function MobileMenu({ handleTabClick, activeTab, setPosts, handLogout, 
-    hideMobileMenu, toggleTheme, theme }) {
+    hideMobileMenu, mobileMenu, toggleTheme, theme }) {
   return (
     <div className='menu'>
         <header>
@@ -16,6 +16,7 @@ function MobileMenu({ handleTabClick, activeTab, setPosts, handLogout,
             <Searchbar 
               setPosts={setPosts}
               hideMobileMenu={hideMobileMenu}
+              mobileMenu={mobileMenu}
             />
         </div>
         

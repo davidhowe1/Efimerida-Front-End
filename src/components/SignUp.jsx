@@ -9,8 +9,6 @@ function SignUp({ hideSignUpWindow, showLoginWindow, handleAlertMessage }) {
   const [verifyPassword, setVerifyPassword] = useState('');
   const [agreeToTerms, setAgreeToTerms] = useState(false)
   const [signupComplete, setSignupComplete] = useState(false)
-
-  console.log(signupComplete)
   
   const handleSignUp = (event) => {
     event.preventDefault();
