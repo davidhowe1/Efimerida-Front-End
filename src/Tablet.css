@@ -10,7 +10,7 @@
     }
   
     section.main-content .left-column {
-      min-width: unset;
+      min-width: 750px;
     }
   
     article.post-card {
