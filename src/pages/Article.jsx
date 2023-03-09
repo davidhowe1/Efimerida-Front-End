@@ -112,8 +112,7 @@ function Article({ fetchTagData, tags, handleAlertMessage }) {
                     </div>
 
                     <div className='author-details'>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="" 
-                        style={{height: '50px', width: '50px', borderRadius: '999px'}}/>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt=""/>
 
                         <div>
                             <h3>{article.post_author.username}</h3>
@@ -133,7 +132,7 @@ function Article({ fetchTagData, tags, handleAlertMessage }) {
                                 </p>
                             </span>
 
-                            <h3>Tags</h3>
+                            <h3 className='tags'>Tags</h3>
                             
                             {matchingTags ? matchingTags.map((tag, index) => (
                                 <p key={index} className='tag'>{tag}</p>

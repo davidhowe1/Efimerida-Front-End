@@ -1,6 +1,7 @@
-import { React, useEffect } from 'react'
+import { React, useState, useEffect } from 'react'
 import SortingOptions from '../components/SortingOptions'
 import Posts from '../components/Posts'
+import SortingToggleButton from '../components/SortingToggleButton'
 
 function All({ options, fetchPosts, showUsers, showContent, setPosts, showListOfUsers, users, posts, 
   storePostContentForRender, showPost, sortType, handleSortTypeChange }) {
@@ -9,12 +10,21 @@ function All({ options, fetchPosts, showUsers, showContent, setPosts, showListOf
       fetchPosts(options)
     }, [])
 
+    const [sortingToggle, setSortingToggle] = useState(false)
+    const toggleSortingOptions = () => setSortingToggle(!sortingToggle)
+
   return (
     <>
       <section className='main-content'>
         <div className='columns'>
           <div className='left-column'>
-            <h1>All Blogs</h1>
+            <header className='blogs'>
+              <h1>All Posts</h1>
+              <SortingToggleButton
+                sortingToggle={sortingToggle}
+                toggleSortingOptions={toggleSortingOptions}
+              />
+            </header>
 
             <div className='posts-container'>
               <Posts 
@@ -27,7 +37,7 @@ function All({ options, fetchPosts, showUsers, showContent, setPosts, showListOf
               </div>
             </div>
 
-          <div className='right-column'>
+          <div className={sortingToggle ? 'right-column' : 'right-column hidden'}>
             <SortingOptions 
               posts={posts}
               setPosts={setPosts}

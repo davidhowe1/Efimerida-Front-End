@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import './App.css'
+import './Tablet.css'
+import './Mobile.css'
 import Header from './components/Header';
 import Login from './components/Login'
 import SignUp from './components/SignUp';
@@ -11,13 +13,18 @@ import Development from './pages/Development'
 import Admin from './pages/Admin'
 import Design from './pages/Design'
 import Article from './pages/Article';
-import NewPostForm from './components/NewPostForm'
 import AlertMessage from './components/AlertMessage';
+import Footer from './components/Footer';
+import NewPost from './pages/NewPost';
+import NewPostButtonMobile from './components/NewPostButtonMobile';
 
 function App() {
 
   const [login, setLogin] = useState(false)
-  const showLoginWindow = () => {setLogin(true);hideSignUpWindow()}
+  const showLoginWindow = () => {
+    setLogin(true)
+    hideSignUpWindow()
+  }
   const hideLoginWindow = () => setLogin(false)
 
   const loginToken = !!localStorage.getItem('token')
@@ -26,6 +33,7 @@ function App() {
   const handLogout = () => {
     localStorage.removeItem('token')
     setIsLoggedIn(false)
+    hideMobileMenu()
   }
 
   const [signUp, setSignUp] = useState(false)
@@ -33,6 +41,9 @@ function App() {
   const hideSignUpWindow = () => setSignUp(false)
   const hideLoginOrSignUpWindow = () => {setLogin(false);setSignUp(false)}
 
+  const [mobileMenu, setMobileMenu] = useState(false)
+  const showMobileMenu = () => setMobileMenu(true)
+  const hideMobileMenu = () => setMobileMenu(false)
 
   const [showUsers, setShowUsers] = useState(false)
   const showContent = () => setShowUsers(false)
@@ -41,6 +52,7 @@ function App() {
   const [sortType, setSortType] = useState('latest')
   const handleSortTypeChange = (type) => {
     setSortType(type)
+    scrollTo(0, 0)
   }
 
   const [alert, setAlert] = useState('')
@@ -103,12 +115,34 @@ function App() {
   const handleTabClick = (tab) => {
     setActiveTab(tab)
     localStorage.setItem('content-tab', tab)
+    hideMobileMenu()
     scrollTo(0, 0)
   }
 
-  const [newPostForm, setNewPostForm] = useState(false)
-  const showNewPostForm = () => setNewPostForm(true)
-  const hideNewPostForm = () => setNewPostForm(false)
+  const [theme, setTheme] = useState('light')
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark')
+      localStorage.setItem('theme', 'dark')
+    } else {
+      setTheme('light')
+      localStorage.setItem('theme', 'light')
+    }
+  }
+
+  const setThemeOnRender = () => {
+    const theme = localStorage.getItem('theme')
+    if (theme === 'light') {
+      setTheme('light')
+    } else {
+      setTheme('dark')
+    }
+  }
+
+  useEffect(() => {
+    document.body.className = theme;
+    setThemeOnRender()
+  }, [theme])
 
   return (
     <>
@@ -134,16 +168,6 @@ function App() {
         hideLoginOrSignUpWindow={hideLoginOrSignUpWindow} />
         : ''}
 
-      {newPostForm ? 
-        <>
-        <NewPostForm 
-          hideNewPostForm={hideNewPostForm}
-          handleAlertMessage={handleAlertMessage}
-        />
-        <DimBackground hideLoginOrSignUpWindow={hideNewPostForm}/>
-        </>
-        : ''}
-
       <Header 
         login={login}
         isLoggedIn={isLoggedIn}
@@ -152,15 +176,19 @@ function App() {
         showSignUpWindow={showSignUpWindow}
         activeTab={activeTab}
         handleTabClick={handleTabClick}
-        newPostForm={newPostForm}
-        showNewPostForm={showNewPostForm}
         setPosts={setPosts}
         handleAlertMessage={handleAlertMessage}
+        mobileMenu={mobileMenu}
+        showMobileMenu={showMobileMenu}
+        hideMobileMenu={hideMobileMenu}
+        toggleTheme={toggleTheme}
+        theme={theme}
       />
 
       <AlertMessage 
         alert={alert}
         alertIsActive={alertIsActive}
+        theme={theme}
       />
 
       {isLoggedIn ? 
@@ -234,15 +262,26 @@ function App() {
               handleAlertMessage={handleAlertMessage}
               />}
             />
-          </Routes> 
+
+            <Route path='/New-Post' element={
+              <NewPost 
+              handleAlertMessage={handleAlertMessage}
+              />} 
+            />
+          </Routes>
+
+          <NewPostButtonMobile />
         </>
         : 
+
         <Home 
         showLoginWindow={showLoginWindow}
         showSignUpWindow={showSignUpWindow}
         login={login}
         signUp={signUp}
         />}
+
+        <Footer />
     </>
   )
 }

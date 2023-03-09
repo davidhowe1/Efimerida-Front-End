@@ -1,0 +1,239 @@
+/* TABLET STYLES */
+
+@media screen and (max-width: 1200px) {
+    section.main-content {
+      padding: 0px 2vw
+    }
+  
+    section.main-content .right-column {
+      margin: 75px 0px 0px 20px;
+    }
+  
+    section.main-content .left-column {
+      min-width: unset;
+    }
+  
+    article.post-card {
+      height: 400px;
+      width: 750px;
+    }
+  
+    article.post {
+      padding: 0vh 10vw 0px;
+    }
+  
+    .article-body {
+      width: 60vw;
+      min-width: 600px;
+    }
+  }
+  
+  @media screen and (max-width: 1000px) {
+  
+    section.home-screen {
+      padding: 0px 2vw;
+    }
+  
+    section.home-screen .image-container {
+      height: 400px;
+    }
+  
+    section.home-screen .container {
+      height: 400px;
+      padding: 30px;
+    }
+  
+    .left-side h1 {
+      font-size: 1.1rem;
+    }
+  
+    .left-side p {
+      font-size: 0.9rem;
+    }
+  
+    section.main-content {
+      padding: 0px;
+    }
+  
+    section.main-content .right-column {
+      display: flex;
+      position: fixed;
+      width: 200px;
+      top: 11rem;
+      right: 3.9vw;
+      margin: 0px;
+      z-index: 1;
+    }
+  
+    section.main-content .right-column.hidden {
+      display: none;
+    }
+  
+    section.main-content .columns {
+      display: flex;
+      justify-content: center;
+    }
+  
+    section.main-content .left-column {
+      width: 100%;
+      min-width: unset;
+    }
+  
+    .posts-container {
+      padding: 0px 4vw;
+    }
+  
+    .left-column header.blogs {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 44.3px;
+      background-color: #fafafa;
+      display: flex;
+      align-items: center;
+      padding: 0px 4vw;
+      z-index: 1;
+      margin: 0px 0px 6px;
+    }
+    
+    .left-column header.blogs div {
+      display: flex;
+      flex-direction: row;
+    }
+  
+    .left-column header.blogs div .toggle-search {
+      display: none;
+    }
+  
+    .toggle-sorting-options-mobile {
+      display: flex;
+      align-items: center;
+      border: 0.5px solid #c2c2c2;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    .toggle-sorting-options-mobile p {
+      margin: 0px 0px 0px 10px;
+      font-size: 0.8rem;
+    }
+  
+    article.post-card {
+      height: 350px;
+      width: 100%;
+    }
+  
+    article.post-card .left-side p.text {
+      height: 110px;
+    }
+  
+    header {
+      padding: 5px 2vw;
+    }
+  
+    nav {
+      padding: 7px 1.5vw 0px;
+    }
+  
+    nav ul li {
+      font-size: 0.7rem;
+      margin: 0px 10px 0px 0px;
+      padding-bottom: 13px;
+    }
+  
+    span.search-bar-container {
+      width: 90%;
+    }
+  
+    /* Tablet article styles */
+  
+    article.post {
+      padding: 0px 0px;
+    }
+  
+    .article-container {
+      display: flex;
+      flex-direction: column-reverse;
+      padding: 0px 2vw;
+    }
+  
+    article.post .close-button {
+      top: 44.3px;
+      box-sizing: border-box;
+      padding: 20px 4vw;
+    }
+  
+    article.post .close-button p {
+      font-size: 0.8rem;
+    }
+  
+    article.post .close-button h1 {
+      font-size: 1.5rem;
+    }
+  
+    .article-body {
+      width: 100%;
+      min-width: unset;
+      padding: 0px 2vw;
+      border: none;
+      box-sizing: border-box;
+    }
+  
+    .article-body p {
+      font-size: 0.95rem;
+    }
+  
+    .author-details {
+      position: unset;
+      display: flex;
+      flex-direction: row;
+      width: fit-content;
+      padding: 25px 2vw;
+    }
+  
+    article.post .author-details img {
+      width: 35px;
+      height: 35px;
+    }
+  
+    .author-details div h3 {
+      display: flex;
+      align-items: center;
+    }
+  
+    .author-details div p.date-and-time {
+      font-size: 0.8rem;
+      margin: 0px 15px;
+    }
+  
+    .author-details div {
+      display: flex;
+      flex-direction: row;
+      margin: 0px 10px;
+    }
+  
+    .author-details h3.tags {
+      display: none;
+    }
+  
+    .author-details div span {
+      margin: 0px;
+      padding: 0px;
+      border: none;
+      margin: 0px 15px 0px 0px;
+    }
+  
+    .author-details div span p {
+      margin: 0px 5px;
+      font-size: 0.8rem;
+    }
+    
+    .author-details p.tag {
+      font-size: 0.8rem;
+      border-radius: 4px;
+      width: unset;
+      padding: 3px 10px;
+      height: fit-content;
+      margin: 0px 5px;
+      align-self: center;
+    }
+  }

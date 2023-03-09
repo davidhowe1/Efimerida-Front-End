@@ -1,0 +1,417 @@
+/* MOBILE STYLES */
+
+@media screen and (max-width: 500px) {
+
+    header {
+      position: sticky;
+      background-color: #111111;
+      top: 0;
+      z-index: 1;
+    }
+
+    header h2 {
+      font-size: 1.2rem;
+    }
+
+    header .login-buttons {
+      display: none;
+    }
+
+    .mobile-menu-toggle {
+      display: flex;
+      align-items: center;
+    }
+
+    .mobile-menu-toggle svg {
+      color: white;
+      height: 25px;
+      width: 25px;
+    }
+
+    .mobile-menu-toggle svg path {
+      color: white;
+    }
+
+    .mobile-menu {
+      display: flex;
+      position: fixed;
+      z-index: 5;
+      height: 100%;
+      width: 100vw;
+      top: 0;
+      left: 0;
+      background-color: #fafafa;
+      box-sizing: border-box;
+      padding: 5px 30px;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+      transition: 0.3s;
+    }
+
+    .mobile-menu.hidden {
+      position: absolute;
+      transform: translateX(-1000px);
+      transition: 0.3s;
+    }
+
+    .mobile-menu header {
+      padding: 0px;
+      display: flex;
+      align-items: center;
+      background-color: transparent;
+    }
+
+    .mobile-menu .menu .search {
+      display: flex;
+      height: 35px;
+      margin: 0px 0px 40px;
+    }
+
+    .mobile-menu .menu button.search {
+      padding: 0px 20px 0px 15px;
+      margin: 0px;
+    }
+
+    .mobile-menu .menu .search .search-bar-container {
+      height: 100%;
+    }
+
+    .mobile-menu .menu .search .search-bar-container input.search-bar {
+      height: 100%;
+    }
+
+    .mobile-menu .menu {
+      width: 100%;
+    }
+
+    .mobile-menu .menu {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-menu .menu ul {
+      display: flex;
+      flex-direction: column;
+      padding: 30px 0px;
+      margin: 0px 0px;
+      border-top: 0.5px solid #c2c2c2;
+    }
+
+    .mobile-menu .menu ul li {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0.6em 0px;
+      color: #242424;
+    }
+
+    .mobile-menu .menu ul li svg {
+      margin: 0px 25px 0px 0px;
+    }
+
+    .mobile-menu .menu ul li svg path {
+      color: #8e94ff;
+    }
+    
+    nav {
+      display: none;
+      flex-direction: column;
+    }
+  
+    nav div {
+      display: flex;
+      justify-content: space-between;
+    }
+  
+    nav div .toggle-search {
+      display: flex;
+      align-items: center;
+      margin: 0px 16px 8px 8px;
+    }
+  
+    .new-post-mobile {
+      display: flex;
+    }
+  
+    span.search-bar-container {
+      width: 100%;
+    }
+  
+    .new-post-desktop {
+      display: none;
+    }
+
+    /* Home screen styles */
+
+    section.home-screen {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0px;
+    }
+
+    section.home-screen .image-container {
+      height: 55%;
+      width: 100%;
+      border-radius: 0px;
+      padding: 0px;
+    }
+
+    section.home-screen .image-container img {
+      border-radius: 0px;
+    }
+
+    section.home-screen .container {
+      display: flex;
+      width: 100%;
+      height: 45%;
+      border-radius: 0px;
+      padding: 0px 30px;
+      text-align: center;
+    }
+
+    section.home-screen .container h1 {
+      align-self: center;
+      font-size: 1.6rem;
+    }
+
+    .left-column header.blogs {
+      top: 48.8px;
+    }
+
+    section.home-screen .container p {
+      margin: 0px;
+    }
+
+    /* Main Content Styles */
+  
+    section.main-content .right-column {
+      top: 14vh;
+      right: 3.5vw;
+      border-radius: 11px;
+    }
+  
+    article.post-card {
+      display: flex;
+      flex-direction: column-reverse;
+      height: fit-content;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    article.post-card .right-side {
+      border-radius: 3px 3px 0px 0px;
+    }
+  
+    article.post-card .right-side img {
+      height: 270px;
+      border-radius: 3px 3px 0px 0px;
+    }    
+  
+    article.post-card .left-side {
+      padding: 0px 15px;
+    }
+  
+    .author-and-time h4, .author-and-time p {
+      margin: 20px 0px 0px;
+    }
+  
+    .author-and-time h4 img {
+      height: 30px;
+      width: 30px;
+    }
+  
+    /* Mobile article styles */
+  
+    article.post .close-button {
+      align-items: flex-start;
+    }
+  
+    article.post .close-button p {
+      margin: 5px 0px;
+    }
+  
+    article.post .close-button h1 {
+      width: 70%;
+    }
+  
+    .author-details {
+      padding: 10px 2vw;
+    }
+  
+    .author-details div h3 {
+      font-size: 1rem;
+      margin: 0px 0px 0px 5px;
+    }
+  
+    article.post .author-details img {
+      height: 30px;
+      width: 30px;
+    }
+  
+    .author-details div {
+      flex-wrap: wrap;
+    }
+  
+    .author-details div span {
+      margin: 5px 5px 5px 0px;
+    }
+  
+    article.post .close-button {
+      display: flex;
+      flex-direction: row;
+      padding: 6px 4vw 6px;
+      top: 48.8px;
+    }
+    
+    article.post .close-button h1 {
+      font-size: 1.3rem;
+      width: 100%;
+      margin: 10px 0px;
+    }
+  
+    article.post .close-button a {
+      justify-content: flex-start;
+      align-self: center;
+    }
+  
+    article.post .close-button a span p {
+      font-size: 0.7rem;
+      word-break: normal;
+      white-space: normal;
+      width: fit-content;
+    }
+  
+    /* New Post Form Mobile */
+  
+    section.new-post-form-container {
+      width: 100vw;
+      box-sizing: border-box;
+      overflow-y: scroll;
+      padding: 20px 4vw;
+    }
+  
+    section.new-post-form-container .form-header {
+      padding: 0px 0px 10px;
+    }
+  
+    section.new-post-form-container .form-header h1 {
+      font-size: 1.2rem;
+      margin: 0px;
+    }
+  
+    section.new-post-form-container input {
+      margin: 0px 0px 10px;
+    }
+  
+    section.new-post-form-container label h4 {
+      font-size: 0.9rem;
+    }
+  
+    section.new-post-form-container .formatting-buttons p {
+      font-size: 0.8rem;
+      margin: 5px 0px 10px;
+    }
+  
+    section.new-post-form-container .formatting-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 0px;
+    }
+  
+    section.new-post-form-container .formatting-buttons div button {
+      margin: 0px 10px 0px 0px;
+    }
+  
+    section.new-post-form-container button[type="submit"] {
+      margin: 20px 0px 0px;
+    }
+
+    /* Footer Styles */
+
+    footer h3 {
+      font-size: 0.8rem;
+    }
+
+    footer p.copyright {
+      font-size: 0.6rem;
+    }
+
+    footer div p.link {
+      font-size: 0.7rem;
+      margin: 0px;
+    }
+
+    /* Alert Message */
+
+    .alert-message.active {
+      left: 0;
+      right: 0;
+      bottom: 3vh;
+      width: fit-content;
+      margin: auto;
+      font-size: 0.85rem;
+    }
+
+    /* New Post Button Mobile */
+
+    .new-post-button-mobile {
+      display: flex;
+      position: fixed;
+      bottom: 3vh;
+      right: 5vw;
+      border-radius: 999px;
+      background-color: #666eff;
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+    }
+
+    .new-post-button-mobile a {
+      display: flex;
+      align-items: center;
+      margin: 0px;
+      padding: 16px;
+      border-radius: 999px;
+    }
+
+    .new-post-button-mobile svg path, .new-post-button-mobile svg {
+      color: white;
+    }
+  }
+
+  /* Dark Mode */
+
+  body.dark .mobile-menu {
+    background-color: #1b1b1b;
+  }
+
+  body.dark .mobile-menu h1, body.dark .mobile-menu li  {
+    color: #fafafa;
+  }
+
+  body.dark .mobile-menu header svg, body.dark .mobile-menu header svg path {
+    color: white;
+  }
+
+  body.dark .mobile-menu ul {
+    border-top: 1px solid #282828;
+  }
+
+  body.dark input.search-bar {
+    border: 1px solid #363636;
+    background-color: #242424;
+  }
+
+  body.dark button.search {
+    background-color: #242424;
+    border-top: 1px solid #363636;
+    border-right: 1px solid #363636;
+    border-bottom: 1px solid #363636;
+  }
+
+  body.dark button.search svg path, body.dark button.search svg {
+    color: white;
+  }
+

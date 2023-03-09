@@ -1,3 +1,5 @@
+/* DESKTOP STYLES */
+
 #root {
   width: 100%;
   background-color: #fafafa;
@@ -7,7 +9,8 @@ span p:hover svg {
   color: white;
 }
 
-button.new-post svg path {
+nav button.new-post svg,
+nav button.new-post svg path {
   color: white;
 }
 
@@ -18,6 +21,18 @@ header {
   padding: 5px 10vw;
   background-color: #111111;
   color: white;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+.mobile-menu-toggle {
+  display: none;
+}
+
+.new-post-button-mobile {
+  display: none;
 }
 
 .dim-background {
@@ -51,8 +66,30 @@ button:hover {
   transition: 0.15s;
 }
 
+.theme {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  transition: 0.15s;
+}
+
+.theme:hover {
+  background-color: white;
+  transition: 0.15s;
+}
+
+.theme:hover svg {
+  fill: black;
+  transition: 0.15s;
+}
+
+.theme svg {
+  fill: white;
+  transition: 0.15s;
+}
+
 .login {
-  margin: 0px 10px 0px 0px;
+  margin: 0px 0px 0px 10px;
   background-color: transparent;
   color: white;
 }
@@ -63,7 +100,7 @@ button:hover {
 }
 
 .sign-up {
-  margin: 0px 10px 0px 0px;
+  margin: 0px 0px 0px 10px;
   background-color: #666eff;
   color: white;
 }
@@ -80,7 +117,7 @@ nav {
   justify-content: space-between;
   background-color: white;
   padding: 10px 10vw 0px;
-  border-bottom: 0.5px solid #c2c2c2;
+  border-bottom: 0.5px solid #e8e8e8;
   z-index: 1;
 }
 
@@ -111,6 +148,10 @@ nav ul li.active {
   border-bottom: solid 3px #666eff;
 }
 
+nav div .toggle-search {
+  display: none;
+}
+
 section.login-form {
   position: absolute;
   padding: 30px;
@@ -120,7 +161,7 @@ section.login-form {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 10px;
+  border-radius: 4px;
   z-index: 3;
   background-color: white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -176,7 +217,6 @@ section.home-screen .image-container {
 section.home-screen .image-container img {
   width: 100%;
   object-fit: cover;
-  border-radius: 10px 0px 0px 10px;
 }
 
 section.home-screen .container {
@@ -186,7 +226,6 @@ section.home-screen .container {
   justify-content: center;
   height: 600px;
   width: 500px;
-  border-radius: 0px 10px 10px 0px;
   padding: 80px;
   box-sizing: border-box;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
@@ -249,35 +288,36 @@ input.search-bar {
   width: 100%;
   height: 31.5px;
   outline: none;
-  border: 1px solid #d1d1d1;
-  border-radius: 999px 0px 0px 999px;
+  border: 0.5px solid #c2c2c2;
+  border-radius: 4px 0px 0px 4px;
   background-color: #fafafa;
   transition: 0.03s;
 }
 
 input.search-bar:focus {
-  border: 1px solid #666eff;
+  border: 0.5px solid #666eff;
   transition: 0.03s;
 }
 
 button.search {
   display: flex;
   align-items: center;
+  padding: 0px 15px 0px 10px;
   height: 31.5px;
   margin: 0px 0px 0px 0px;
   border-left: none;
-  border-right: 1px solid #d1d1d1;
-  border-top: 1px solid #d1d1d1;
-  border-bottom: 1px solid #d1d1d1;
-  border-radius: 0px 999px 999px 0px;
+  border-right: 0.5px solid #c2c2c2;
+  border-top: 0.5px solid #c2c2c2;
+  border-bottom: 0.5px solid #c2c2c2;
+  border-radius: 0px 4px 4px 0px;
 }
 
 button.search:hover {
   background-color: #666eff;
   color: white;
-  border-right: 1px solid #666eff;
-  border-top: 1px solid #666eff;
-  border-bottom: 1px solid #666eff;
+  border-right: 0.5px solid #666eff;
+  border-top: 0.5px solid #666eff;
+  border-bottom: 0.5px solid #666eff;
 }
 
 button.search:hover p, button.search:hover svg path {
@@ -299,6 +339,9 @@ section.main-content .columns {
 }
 
 section.main-content .left-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   border-radius: 10px;
   min-width: 900px;
   height: fit-content;
@@ -310,6 +353,17 @@ section.main-content .left-column span {
   justify-content: space-between;
 }
 
+.left-column header.blogs {
+  display: flex;
+  padding: 0px;
+  align-items: center;
+  background-color: transparent;
+}
+
+.left-column header.blogs div {
+  display: none;
+}
+
 button.new-post {
   display: flex;
   align-items: center;
@@ -317,6 +371,10 @@ button.new-post {
   white-space: nowrap;
   background-color: #666eff;
   border: 1px solid #666eff;
+}
+
+.new-post-mobile {
+  display: none;
 }
 
 button.new-post:hover {
@@ -344,14 +402,15 @@ section.main-content .right-column {
 
 section.right-side-panel {
   padding: 20px;
-  border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  background-color: #fafafa;
+  border-radius: 4px;
 }
 
 button.sorting-option {
-  border-radius: 999px;
+  border-radius: 3px;
   background-color: transparent;
-  border: solid 1px #242424;
+  border: solid 0.5px #242424;
   margin: 5px 5px 0px 0px;
   font-size: 1rem;
   padding: 0px 11px;
@@ -359,18 +418,18 @@ button.sorting-option {
 
 button.sorting-option.active {
   color: white;
-  border: solid 1px transparent;
+  border: solid 0.5px transparent;
   background-color: #666eff;
 }
 
 button.sorting-option.active:hover {
   color: white;
-  border: solid 1px transparent;
+  border: solid 0.5px transparent;
   background-color: #666eff;
 }
 
 button.sorting-option:hover {
-  border: solid 1px #666eff;
+  border: solid 0.5px #666eff;
   color: #666eff;
 }
 
@@ -394,8 +453,8 @@ article.post-card {
   grid-template-columns: 50% 50%;
   height: 420px;
   width: 900px;
-  margin: 20px 0px;
-  border-radius: 10px;
+  border-radius: 3px;
+  margin: 0px 0px 30px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   transition: 0.1s;
 }
@@ -410,7 +469,7 @@ article.post-card .right-side {
   display: flex;
   overflow: hidden;
   background-color: white;
-  border-radius: 0px 10px 10px 0px; 
+  border-radius: 0px 3px 3px 0px;
 }
 
 article.post-card .left-side {
@@ -429,7 +488,7 @@ article.post-card .left-side p.text {
   overflow-y: hidden;
   -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
-  border-top: 1px solid #c2c2c2;
+  border-top: 0.5px solid #c2c2c2;
 }
 
 article.post-card .left-side div div {
@@ -446,7 +505,7 @@ article.post-card .left-side div h1 {
 article.post-card .social {
   display: flex;
   justify-content: space-between;
-  border-top: solid 1px #c2c2c2;
+  border-top: solid 0.5px #c2c2c2;
 }
 
 article.post-card .social p svg path {
@@ -456,7 +515,7 @@ article.post-card .social p svg path {
 article.post-card .right-side img {
   object-fit: cover;
   width: 100%;
-  border-radius: 0px 10px 10px 0px; 
+  border-radius: 0px 3px 3px 0px;
 }
 
 /* User Cards */
@@ -467,14 +526,14 @@ article.user {
   align-items: center;
   padding: 1px 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  border-radius: 10px;
+  border-radius: 4px;
   margin: 10px 0px;
-  border: 1px solid transparent;
+  border: 0.5px solid transparent;
   transition: 0.1s;
 }
 
 article.user:hover {
-  border: 1px solid #666eff;
+  border: 0.5px solid #666eff;
   transition: 0.1s;
   cursor: pointer;
 }
@@ -562,7 +621,8 @@ article.post img {
 
 .article-body {
   margin: 0px 0px 150px;
-  width: 40vw;
+  width: 800px;
+  min-width: 700px;
   padding: 0px 50px 0px 0px;
   border-right: 1px solid #e8e8e8;
 }
@@ -575,12 +635,12 @@ article.post img {
 button.back-to-top {
   background-color: transparent;
   border-radius: 5px;
-  border: 1px solid #c2c2c2;
+  border: 0.5px solid #c2c2c2;
   color: #878787;
 }
 
 button.back-to-top:hover {
-  border: 1px solid #666eff;
+  border: 0.5px solid #666eff;
   background-color: #666eff;
   color: white;
 }
@@ -597,19 +657,26 @@ button.back-to-top:hover {
   top: 15vh;
   height: fit-content;
   width: 200px;
+  min-width: 170px;
   padding: 15px 15px 15px 25px;
 }
 
-.author-details span p {
-  border: 1px solid transparent;
+.author-details img {
+  width: 50px;
+  height: 50px;
   border-radius: 999px;
+}
+
+.author-details span p {
+  border: 0.5px solid transparent;
+  border-radius: 4px;
   padding: 3px 8px 3px 3px;
   cursor: pointer;
-  border: 1px solid #d9d9d9;
+  border: 0.5px solid #d9d9d9;
 }
 
 .author-details span p:hover {
-  border: 1px solid #666eff;
+  border: 0.5px solid #666eff;
   color: white;
   background-color: #666eff;
 }
@@ -640,27 +707,24 @@ button.back-to-top:hover {
 
 .author-details p.tag {
   margin: 10px 0px;
-  padding: 5px 8px;
+  padding: 5px 12px;
   width: fit-content;
   border-radius: 4px;
   color: #666eff;
-  border: 1px solid #666eff;
+  border: 0.5px solid #666eff;
 }
 
 /* New Post Form */
 
 section.new-post-form-container {
-  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
   height: fit-content;
-  width: 500px;
-  background-color: white;
+  width: 700px;
   border-radius: 10px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 20px 30px;
   z-index: 3;
 }
@@ -674,6 +738,8 @@ section.new-post-form-container .form-header {
 
 section.new-post-form-container input {
   border-radius: 5px;
+  background-color: white;
+  border: 1px solid #d1d1d1;
 }
 
 section.new-post-form-container label h4 {
@@ -691,34 +757,14 @@ section.new-post-form-container textarea {
 section.new-post-form-container button[type="submit"] {
   background-color: #666eff;
   color: white;
-  height: 50px;
-  margin: 50px 0px 10px;
+  height: 40px;
+  margin: 20px 0px 10px;
   width: 100%;
   align-self: center;
 }
 
 section.new-post-form-container button[type="submit"]:hover {
   background-color: #8e94ff;
-}
-
-.formatting-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px 0px 10px;
-}
-
-.formatting-buttons button:hover {
-  background-color: #666eff;
-  color: white;
-}
-
-.formatting-buttons p {
-  margin: 0px 10px 0px 0px;
-}
-
-.formatting-buttons button {
-  margin: 0px 0px 0px 10px;
 }
 
 /* Comments Section */
@@ -836,5 +882,150 @@ section.comments .add-comment button.new-post {
 }
 
 .alert-message svg.success path {
+  color: #6bffc4;
+}
+
+/* Footer */
+
+footer {
+  display: flex;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0vh 10vw;
+  border-top: 0.5px solid #d9d9d9;
+  background-color: transparent;
+}
+
+footer h3 {
+  margin: 0px 2vw 0px 0px;
+}
+
+p.copyright {
+  font-size: 0.7rem;
+}
+
+footer p.link {
+  border-bottom: 3px solid transparent;
+  transition: 0.15s;
+  cursor: pointer;
+}
+
+footer p.link:hover {
+  border-bottom: 3px solid #242424;
+  transition: 0.15s;
+}
+
+/* Dark Mode Styles */
+
+body.dark * {
+  color: #fafafa;
+}
+
+body.dark #root {
+  background-color: #1b1b1b;
+}
+
+body.dark .login-form {
+  background-color: #1b1b1b;
+  box-shadow: none;
+}
+
+body.dark .login-form input {
+  background-color: #313131;
+}
+
+body.dark .dim-background {
+  background-color: black;
+}
+
+body.dark nav {
+  background-color: #1b1b1b;
+  border-bottom: 0.5px solid #313131;
+}
+
+body.dark header.blogs {
+  background-color: #1b1b1b;
+}
+
+body.dark section.right-side-panel {
+  background-color: #1b1b1b;
+  border: 0.5px solid #313131;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+body.dark article.post-card {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: 0.5px solid #313131;
+}
+
+body.dark article.post-card:hover {
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, 
+  rgba(0, 0, 0, 0.07) 0px 2px 4px,
+  rgba(0, 0, 0, 0.07) 0px 4px 8px, 
+  rgba(0, 0, 0, 0.07) 0px 8px 16px, 
+  rgba(0, 0, 0, 0.07) 0px 16px 32px, 
+  rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+body.dark article.post {
+  background-color: #1b1b1b;
+}
+
+body.dark .close-button {
+  background-color: #1b1b1b;
+}
+
+body.dark .close-button span p:hover {
+  border-bottom: 1.5px solid white;
+}
+
+body.dark section.comments .add-comment textarea {
+  background-color: #5c5c5c;
+  box-shadow: none;
+}
+
+body.dark section.comments .add-comment textarea::placeholder {
+  color: white;
+}
+
+body.dark .new-post-form-container input {
+  background-color: #242424;
+}
+
+body.dark .toggle-sorting-options-mobile,
+body.dark button.sorting-option,
+body.dark .left-side p.text, 
+body.dark .social, 
+body.dark .author-details span p,
+body.dark .comments-title,
+body.dark .comments ul li,
+body.dark button.back-to-top,
+body.dark footer, 
+body.dark .form-header,
+body.dark .article-body,
+body.dark .author-details span {
+  border-color: #5c5c5c;
+}
+
+body.dark .form-header {
+  border-bottom: 0.5px solid #5c5c5c;
+}
+
+body.dark .new-post-form-container input {
+  border: 0.5px solid #5c5c5c;
+}
+
+body.dark .alert-message.active {
+  background-color: black;
+}
+
+body.dark .alert-message svg.alert path {
+  color: #FF6B6B;
+}
+
+body.dark .alert-message svg.success path {
   color: #6bffc4;
 }

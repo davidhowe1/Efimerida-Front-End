@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import SortingOptions from '../components/SortingOptions'
 import Posts from '../components/Posts'
+import SortingToggleButton from '../components/SortingToggleButton'
 
 function Design({ showUsers, showContent, setPosts, showListOfUsers, users, posts, 
   storePostContentForRender, showPost, sortType, handleSortTypeChange }) {
@@ -19,13 +20,22 @@ function Design({ showUsers, showContent, setPosts, showListOfUsers, users, post
     useEffect(() => {
       fetchPosts()
     }, [])
+
+    const [sortingToggle, setSortingToggle] = useState(false)
+    const toggleSortingOptions = () => setSortingToggle(!sortingToggle)
     
   return (
     <>
       <section className='main-content'>
         <div className='columns'>
           <div className='left-column'>
-            <h1>Design</h1>
+            <header className='blogs'>
+              <h1>Design</h1>
+              <SortingToggleButton
+                sortingToggle={sortingToggle}
+                toggleSortingOptions={toggleSortingOptions}
+              />
+            </header>
 
             <div className='posts-container'>
               <Posts 
@@ -38,7 +48,7 @@ function Design({ showUsers, showContent, setPosts, showListOfUsers, users, post
               </div>
             </div>
 
-          <div className='right-column'>
+            <div className={sortingToggle ? 'right-column' : 'right-column hidden'}>
             <SortingOptions 
               posts={posts}
               setPosts={setPosts}

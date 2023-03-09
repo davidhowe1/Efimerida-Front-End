@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Search } from 'react-bootstrap-icons'
 
-function Searchbar({ setPosts }) {
+function Searchbar({ setPosts, hideMobileMenu }) {
 
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -14,6 +14,8 @@ function Searchbar({ setPosts }) {
     .then(response => response.json())
     .then(data => setPosts(data))
     .catch(err => console.error(err))
+    setSearchQuery('')
+    hideMobileMenu()
   }
 
   const handleKeyDown = (e) => {
@@ -25,6 +27,7 @@ function Searchbar({ setPosts }) {
   return (
     <span className='search-bar-container'>
       <input 
+      placeholder='Search Efimerida'
       onChange={(e) => setSearchQuery(e.target.value)}
       onKeyDown={handleKeyDown}
       className='search-bar' 
@@ -32,7 +35,6 @@ function Searchbar({ setPosts }) {
 
       <button onClick={handleSearchQuery} className='search'>
         <Search />
-        <p>Search</p>
       </button>
     </span>
   )
