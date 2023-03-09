@@ -71,6 +71,7 @@ button:hover {
   align-items: center;
   background-color: transparent;
   transition: 0.15s;
+  padding: 0px 8px
 }
 
 .theme:hover {
@@ -309,7 +310,7 @@ input.search-bar:focus {
 button.search {
   display: flex;
   align-items: center;
-  padding: 0px 15px 0px 10px;
+  padding: 0px 15px 0px 15px;
   height: 31.5px;
   margin: 0px 0px 0px 0px;
   border-left: none;
@@ -491,6 +492,7 @@ article.post-card .left-side {
 
 article.post-card .left-side p.text {
   display: block;
+  font-size: 0.9rem;
   height: 180px;
   overflow-y: hidden;
   -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
@@ -653,7 +655,7 @@ button.back-to-top:hover {
 
 .article-body p {
   display: block;
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin: 1em 0px 2em;
 }
 
@@ -831,6 +833,7 @@ section.comments img {
 section.comments .add-comment textarea {
   border: none;
   outline: none;
+  border-radius: 4px;
   height: 35px;
   width: 100%;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -954,6 +957,25 @@ body.dark .dim-background {
 body.dark nav {
   background-color: #1b1b1b;
   border-bottom: 0.5px solid #313131;
+}
+
+body.dark input.search-bar {
+  border: 1px solid #363636;
+  background-color: #242424;
+}
+
+body.dark button.search {
+  background-color: #242424;
+  border-top: 1px solid #363636;
+  border-right: 1px solid #363636;
+  border-bottom: 1px solid #363636;
+}
+
+body.dark button.search:hover {
+  background-color: #666eff;
+  border-top: 1px solid #666eff;
+  border-right: 1px solid #666eff;
+  border-bottom: 1px solid #666eff;
 }
 
 body.dark header.blogs {
