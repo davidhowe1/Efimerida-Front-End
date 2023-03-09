@@ -211,12 +211,14 @@ section.home-screen .image-container {
   display: flex;
   height: 600px;
   width: 500px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
 }
 
 section.home-screen .image-container img {
   width: 100%;
   object-fit: cover;
+  border-top: 1px solid #313131;
+  border-bottom: 1px solid #313131;
+  border-left: 1px solid #313131;
 }
 
 section.home-screen .container {
@@ -228,7 +230,10 @@ section.home-screen .container {
   width: 500px;
   padding: 80px;
   box-sizing: border-box;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  border-top: 1px solid #313131;
+  border-bottom: 1px solid #313131;
+  border-right: 1px solid #313131;
+
 }
 
 section.home-screen .container h1 {
@@ -1007,11 +1012,15 @@ body.dark .author-details span {
   border-color: #5c5c5c;
 }
 
-body.dark .author-details span p, body.dark button.sorting-option {
+body.dark .author-details span p, 
+body.dark button.sorting-option,
+body.dark button.back-to-top {
   border-color: #5c5c5c;
 }
 
-body.dark .author-details span p:hover, body.dark button.sorting-option.active {
+body.dark .author-details span p:hover, 
+body.dark button.sorting-option.active,
+body.dark button.back-to-top:hover {
   border-color: #666eff;
 }
 

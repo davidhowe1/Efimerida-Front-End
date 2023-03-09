@@ -31,17 +31,37 @@
   @media screen and (max-width: 1000px) {
   
     section.home-screen {
+      display: flex;
+      flex-direction: column;
       padding: 0px 2vw;
     }
   
     section.home-screen .image-container {
       height: 400px;
     }
+
+    section.home-screen .image-container img {
+      border-right: 1px solid #313131;
+      border-top: 1px solid #313131;
+      border-left: 1px solid #313131;
+      border-bottom: none;
+      box-sizing: border-box;
+    }
   
     section.home-screen .container {
       height: 400px;
       padding: 30px;
+      text-align: center;
+      border-right: 1px solid #313131;
+      border-top: none;
+      border-bottom: 1px solid #313131;
+      border-left: 1px solid #313131;
     }
+
+    section.home-screen .container h1 {
+      align-self: center;
+    }
+
   
     .left-side h1 {
       font-size: 1.1rem;
