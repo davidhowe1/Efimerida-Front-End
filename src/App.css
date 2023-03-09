@@ -453,7 +453,7 @@ article.post-card {
   grid-template-columns: 50% 50%;
   height: 420px;
   width: 900px;
-  border-radius: 3px;
+  border-radius: 4px;
   margin: 0px 0px 30px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   transition: 0.1s;
@@ -468,7 +468,7 @@ article.post-card:hover {
 article.post-card .right-side {
   display: flex;
   overflow: hidden;
-  background-color: white;
+  background-color: transparent;
   border-radius: 0px 3px 3px 0px;
 }
 
@@ -515,7 +515,6 @@ article.post-card .social p svg path {
 article.post-card .right-side img {
   object-fit: cover;
   width: 100%;
-  border-radius: 0px 3px 3px 0px;
 }
 
 /* User Cards */
