@@ -996,10 +996,8 @@ body.dark .new-post-form-container input {
 }
 
 body.dark .toggle-sorting-options-mobile,
-body.dark button.sorting-option,
 body.dark .left-side p.text, 
 body.dark .social, 
-body.dark .author-details span p,
 body.dark .comments-title,
 body.dark .comments ul li,
 body.dark button.back-to-top,
@@ -1008,6 +1006,14 @@ body.dark .form-header,
 body.dark .article-body,
 body.dark .author-details span {
   border-color: #5c5c5c;
+}
+
+body.dark .author-details span p, body.dark button.sorting-option {
+  border-color: #5c5c5c;
+}
+
+body.dark .author-details span p:hover, body.dark button.sorting-option.active {
+  border-color: #666eff;
 }
 
 body.dark .form-header {
