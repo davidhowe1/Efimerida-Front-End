@@ -7,6 +7,7 @@
       background-color: #111111;
       top: 0;
       z-index: 1;
+      padding: 5px 4vw;
     }
 
     header h2 {
@@ -15,6 +16,10 @@
 
     header .login-buttons {
       display: none;
+    }
+
+    section.login-form {
+      padding: 20px;
     }
 
     .mobile-menu-toggle {
@@ -334,7 +339,11 @@
 
     /* Footer Styles */
 
-    footer h3 {
+    footer {
+      padding: 0px 4vw;
+    }
+
+    footer h4 {
       font-size: 0.8rem;
     }
 

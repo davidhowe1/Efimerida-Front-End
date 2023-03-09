@@ -46,6 +46,7 @@
       border-left: 1px solid #313131;
       border-bottom: none;
       box-sizing: border-box;
+      border-radius: 4px 4px 0px 0px;
     }
   
     section.home-screen .container {
@@ -56,6 +57,7 @@
       border-top: none;
       border-bottom: 1px solid #313131;
       border-left: 1px solid #313131;
+      border-radius: 0px 0px 4px 4px;
     }
 
     section.home-screen .container h1 {
@@ -255,5 +257,9 @@
       height: fit-content;
       margin: 0px 5px;
       align-self: center;
+    }
+
+    footer {
+      padding: 0px 2vw;
     }
   }
