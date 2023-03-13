@@ -403,7 +403,7 @@
   /* Dark Mode */
 
   body.dark .mobile-menu {
-    background-color: #1b1b1b;
+    background-color: #15151c;
   }
 
   body.dark .mobile-menu h1, body.dark .mobile-menu li  {
@@ -415,7 +415,7 @@
   }
 
   body.dark .mobile-menu ul {
-    border-top: 1px solid #282828;
+    border-top: 1px solid #2b292f;
   }
 
   body.dark button.search svg path, body.dark button.search svg {

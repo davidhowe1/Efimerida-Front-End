@@ -992,23 +992,27 @@ body.dark * {
   color: #fafafa;
 }
 
+body.dark .header-wrapper {
+  background-color: #0d0c0d;
+}
+
 body.dark #root, body.dark .nav-wrapper {
-  background-color: #1b1b1b;
-  border-color: #313131;
+  background-color: #15151c;
+  border-color: #2b292f;
   transition: 0.05s;
 }
 
 body.dark .login-form {
-  background-color: #1b1b1b;
+  background-color: #15151c;
   box-shadow: none;
 }
 
 body.dark .login-form input {
-  background-color: #313131;
+  background-color: #202029;
 }
 
 body.dark section.home-screen .container {
- background-color: #242424;
+ background-color: #1b1b23;
 }
 
 body.dark .dim-background {
@@ -1016,21 +1020,21 @@ body.dark .dim-background {
 }
 
 body.dark nav {
-  background-color: #1b1b1b;
+  background-color: #15151c;
   border: none;
   transition: 0.05s;
 }
 
 body.dark input.search-bar {
-  border: 1px solid #363636;
-  background-color: #242424;
+  border: 1px solid #2b292f;
+  background-color: #202029;
 }
 
 body.dark button.search {
-  background-color: #242424;
-  border-top: 1px solid #363636;
-  border-right: 1px solid #363636;
-  border-bottom: 1px solid #363636;
+  background-color: #202029;
+  border-top: 1px solid #2b292f;
+  border-right: 1px solid #2b292f;
+  border-bottom: 1px solid #2b292f;
 }
 
 body.dark button.search:hover {
@@ -1041,12 +1045,12 @@ body.dark button.search:hover {
 }
 
 body.dark header.blogs {
-  background-color: #1b1b1b;
+  background-color: #15151c;
 }
 
 body.dark section.right-side-panel {
-  background-color: #1b1b1b;
-  border: 1px solid #313131;
+  background-color: #15151c;
+  border: 1px solid #2b292f;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: 0.05s;
 }
@@ -1054,7 +1058,7 @@ body.dark section.right-side-panel {
 body.dark article.post-card,
 body.dark article.user {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border: 1px solid #313131;
+  border: 1px solid #2b292f;
 }
 
 body.dark article.post-card:hover {
@@ -1067,11 +1071,11 @@ body.dark article.post-card:hover {
 }
 
 body.dark article.post {
-  background-color: #1b1b1b;
+  background-color: #15151c;
 }
 
 body.dark .close-button {
-  background-color: #1b1b1b;
+  background-color: #15151c;
   transition: 0.05s;
 }
 
@@ -1090,7 +1094,7 @@ body.dark section.comments .add-comment textarea::placeholder {
 }
 
 body.dark .new-post-form-container input {
-  background-color: #242424;
+  background-color: #202029;
 }
 
 body.dark .toggle-sorting-options-mobile,
@@ -1105,7 +1109,7 @@ body.dark footer,
 body.dark .form-header,
 body.dark .article-body,
 body.dark .author-details span {
-  border-color: #313131;
+  border-color: #2b292f;
 }
 
 body.dark .author-details span p, 
@@ -1116,16 +1120,17 @@ body.dark button.back-to-top {
 
 body.dark .author-details span p:hover, 
 body.dark button.sorting-option.active,
-body.dark button.back-to-top:hover {
+body.dark button.back-to-top:hover,
+body.dark article.user:hover {
   border-color: #666eff;
 }
 
 body.dark .form-header {
-  border-bottom: 1px solid #5c5c5c;
+  border-bottom: 1px solid #3a3642;
 }
 
 body.dark .new-post-form-container input {
-  border: 1px solid #5c5c5c;
+  border: 1px solid #3a3642;
 }
 
 body.dark .alert-message.active {
@@ -1153,7 +1158,7 @@ body .tox .tox-editor-header {
 
 body.dark .tox-tinymce {
   border-radius: 4px;
-  border: 1px solid #5c5c5c;
+  border: 1px solid #3a3642;
 }
 
 body.dark .tox .tox-toolbar-overlord {
@@ -1161,7 +1166,7 @@ body.dark .tox .tox-toolbar-overlord {
 }
 
 body.dark .tox .tox-tbtn--bespoke {
-  background-color: #5c5c5c;
+  background-color: #3a3642;
   color: white;
   border: 1px solid transparent;
 }
@@ -1169,24 +1174,24 @@ body.dark .tox .tox-tbtn--bespoke {
 body.dark .tox .tox-collection--list 
 .tox-collection__item--active:not(.tox-collection__item--state-disabled) {
   color: white;
-  background-color: #878787;
+  background-color: #3a3642;
 }
 
 body.dark .tox:not(.tox-tinymce-inline) .tox-editor-header,
 body.dark .tox .tox-toolbar__primary,
 body.dark .tox .tox-collection--list .tox-collection__group:first-child,
 body.dark .tox .tox-toolbar, .tox .tox-toolbar__overflow, .tox .tox-toolbar__primary {
-  background-color: #313131;
+  background-color: #2b292f;
 }
 
 body.dark .tox .tox-menu,
 body.dark .tox.tox-tinymce-aux .tox-toolbar__overflow {
-  background-color: #313131;
-  border: 1px solid #5c5c5c;
+  background-color: #2b292f;
+  border: 1px solid #3a3642;
 }
 
 body.dark .tox .tox-collection__item {
-  background-color: #363636;
+  background-color: #3a3642;
   color: white;
 }
 
@@ -1194,7 +1199,7 @@ body.dark .tox .tox-tbtn svg {
   fill: white;
 }
 body.dark .tox .tox-tbtn:hover {
-  background-color: #5c5c5c;
+  background-color: #3a3642;
   border: 1px solid #8e94ff;
 }
 
