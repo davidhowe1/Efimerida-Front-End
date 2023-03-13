@@ -52,7 +52,7 @@
       left: 0;
       background-color: #fafafa;
       box-sizing: border-box;
-      padding: 5px 30px;
+      padding: 0px 35px;
       box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
       transition: 0.3s;
     }
@@ -342,10 +342,6 @@
     section.new-post-form-container .formatting-buttons div button {
       margin: 0px 10px 0px 0px;
     }
-  
-    section.new-post-form-container button[type="submit"] {
-      margin: 20px 0px 0px;
-    }
 
     /* Footer Styles */
 
@@ -372,9 +368,11 @@
       left: 0;
       right: 0;
       bottom: 3vh;
+      max-width: 90%;
       width: fit-content;
       margin: auto;
       font-size: 0.85rem;
+      box-sizing: border-box;
     }
 
     /* New Post Button Mobile */

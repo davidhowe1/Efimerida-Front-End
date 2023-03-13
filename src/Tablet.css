@@ -23,7 +23,8 @@
   }
 
   article.post {
-    padding: 0vh 10vw 0px;
+    width: 100%;
+    padding: 0vh 4vw 0px;
   }
 
   .article-body {
@@ -179,6 +180,24 @@
     span.search-bar-container {
       width: 90%;
     }
+
+    section.new-post-form-container {
+      width: 100%;
+      box-sizing: border-box;
+      z-index: 3;
+    }
+
+    section.new-post-form-container button[type="submit"], 
+    section.new-post-form-container button.cancel {
+      margin: 0px 0px 0px 10px;
+      padding: 8px 12px;
+      height: unset;
+      box-sizing: border-box;
+    }
+
+    section.new-post-form-container .button-container {
+      margin: 20px 0px 0px;
+    }
   
     /* Tablet article styles */
   
@@ -275,6 +294,7 @@
     }
 
     footer {
+      width: 100%;
       padding: 0px 2vw;
     }
   }

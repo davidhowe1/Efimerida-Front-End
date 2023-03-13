@@ -1,10 +1,11 @@
 import React from 'react'
-import { BoxArrowRight, Code, Newspaper, Pencil, MoonFill, Tools, X, SunFill } from 'react-bootstrap-icons'
+import { BoxArrowRight, BoxArrowLeft, Code, Newspaper, Pencil, MoonFill, Tools, X, SunFill, PersonFillAdd } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
 import Searchbar from './Searchbar'
 
 function MobileMenu({ handleTabClick, activeTab, setPosts, handleLogout, 
-    hideMobileMenu, mobileMenu, toggleTheme, theme }) {
+    hideMobileMenu, mobileMenu, toggleTheme, theme, isLoggedIn, showLoginWindow, 
+    showSignUpWindow}) {
   return (
     <div className='menu'>
         <header>
@@ -47,9 +48,19 @@ function MobileMenu({ handleTabClick, activeTab, setPosts, handleLogout,
         </ul>
 
         <ul>
-            <li onClick={handleLogout}>
-                <BoxArrowRight /> Logout
-            </li>
+            {isLoggedIn ? <li onClick={handleLogout}>
+                <BoxArrowLeft /> Logout
+            </li> :
+            <>
+                <li onClick={showLoginWindow}>
+                    <BoxArrowRight /> Login
+                </li>
+
+                <li onClick={showSignUpWindow}>
+                    <PersonFillAdd /> Sign Up
+                </li>
+            </>
+            }
 
             <li onClick={toggleTheme}>
                 {theme === 'light' ? 

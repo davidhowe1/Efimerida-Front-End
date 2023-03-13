@@ -9,11 +9,26 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handleLogout,
   activeTab, handleTabClick, showNewPostForm, setPosts, mobileMenu, showMobileMenu,
   hideMobileMenu, toggleTheme, theme, loginToken }) {
 
+    const mobileMenuProps = {
+          handleTabClick,
+          activeTab,
+          setPosts,
+          showNewPostForm,
+          handleLogout,
+          hideMobileMenu,
+          toggleTheme,
+          theme,
+          mobileMenu,
+          isLoggedIn,
+          showLoginWindow,
+          showSignUpWindow,
+    }
+
   return (
     <>
       <div className='header-wrapper'>
         <header>
-          <Link to='/Home'>
+          <Link onClick={() => handleTabClick('All')} to={loginToken ? '/All' : ''}>
             <h2>Efimerida</h2>
           </Link>
 
@@ -35,26 +50,18 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handleLogout,
               }
           </div>
 
-          {isLoggedIn ? <div onClick={showMobileMenu} className='mobile-menu-toggle'>
-              <List />
-          </div> : ''}
+          <div onClick={showMobileMenu} className='mobile-menu-toggle'>
+            <List />
+          </div>
 
         </header>
       </div>
 
-      {isLoggedIn ? <div className={mobileMenu ? 'mobile-menu' : 'mobile-menu hidden'}>
+      <div className={mobileMenu ? 'mobile-menu' : 'mobile-menu hidden'}>
         <MobileMenu 
-          handleTabClick={handleTabClick}
-          activeTab={activeTab}
-          setPosts={setPosts}
-          showNewPostForm={showNewPostForm}
-          handleLogout={handleLogout}
-          hideMobileMenu={hideMobileMenu}
-          toggleTheme={toggleTheme}
-          theme={theme}
-          mobileMenu={mobileMenu}
+          {...mobileMenuProps}
         />
-      </div> : ''}
+      </div>
 
       <div className='nav-wrapper'>
         <nav>

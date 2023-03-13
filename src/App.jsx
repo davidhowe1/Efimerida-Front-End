@@ -24,6 +24,7 @@ function App() {
   const showLoginWindow = () => {
     setLogin(true)
     hideSignUpWindow()
+    hideMobileMenu()
   }
   const hideLoginWindow = () => setLogin(false)
 
@@ -34,10 +35,15 @@ function App() {
     localStorage.removeItem('token')
     setIsLoggedIn(false)
     hideMobileMenu()
+    handleAlertMessage('Logged Out')
   }
 
   const [signUp, setSignUp] = useState(false)
-  const showSignUpWindow = () => {setSignUp(true);hideLoginWindow()}
+  const showSignUpWindow = () => {
+    setSignUp(true)
+    hideLoginWindow()
+    hideMobileMenu()
+  }
   const hideSignUpWindow = () => setSignUp(false)
   const hideLoginOrSignUpWindow = () => {setLogin(false);setSignUp(false)}
 
@@ -72,34 +78,34 @@ function App() {
     }, 5000)
   }
 
-  let [posts, setPosts] = useState([])
 
+  let [posts, setPosts] = useState([])
   let options = {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
-    }
+  }
 
-    const fetchPosts = () => {
-      fetch('http://127.0.0.1:8000/post/list/?format=json', options)
-        .then(response => response.json())
-        .then(data => setPosts(data.results))
-        .catch(err => console.error(err))
-    }
+  const fetchPosts = () => {
+    fetch('http://127.0.0.1:8000/post/list/?format=json', options)
+      .then(response => response.json())
+      .then(data => setPosts(data.results))
+      .catch(err => console.error(err))
+  }
 
-    const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([])
 
-    const fetchUserList = () => {
-      fetch('http://127.0.0.1:8000/user/list/?format=json', options)
-        .then(response => response.json())
-        .then(data => setUsers(data.results))
-        .catch(err => console.error(err))
-    }
+  const fetchUserList = () => {
+    fetch('http://127.0.0.1:8000/user/list/?format=json', options)
+      .then(response => response.json())
+      .then(data => setUsers(data.results))
+      .catch(err => console.error(err))
+  }
 
-    useEffect(() => {
-      fetchUserList()
-      setActiveTab(localStorage.getItem('content-tab'))
+  useEffect(() => {
+    fetchUserList()
+    setActiveTab(localStorage.getItem('content-tab'))
   }, [])
 
   const fetchTagData = () => {
@@ -155,49 +161,57 @@ function App() {
     showListOfUsers,
     sortType,
     handleSortTypeChange,
+    tags,
+    fetchTagData,
+    showLoginWindow,
+    showSignUpWindow,
+    login,
+    signUp,
+    loginToken,
+    handleAlertMessage
   };
+
+  const headerProperties = {
+    login,
+    isLoggedIn,
+    handleLogout,
+    showLoginWindow,
+    showSignUpWindow,
+    activeTab,
+    handleTabClick,
+    setPosts,
+    handleAlertMessage,
+    mobileMenu,
+    showMobileMenu,
+    hideMobileMenu,
+    toggleTheme,
+    theme,
+    loginToken
+  };
+  
 
   return (
     <>
       {login ? 
         <Login 
-          showSignUpWindow={showSignUpWindow}
-          hideLoginWindow={hideLoginWindow}
-          setIsLoggedIn={setIsLoggedIn}
-          alert={alert}
-          setActiveTab={setActiveTab}
-          handleAlertMessage={handleAlertMessage}
+        showSignUpWindow={showSignUpWindow}
+        hideLoginWindow={hideLoginWindow}
+        setIsLoggedIn={setIsLoggedIn}
+        alert={alert}
+        setActiveTab={setActiveTab}
+        handleAlertMessage={handleAlertMessage}
         /> : ''}
 
       {signUp ? 
         <SignUp
-          hideSignUpWindow={hideSignUpWindow}
-          showLoginWindow={showLoginWindow}
-          handleAlertMessage={handleAlertMessage}
+        hideSignUpWindow={hideSignUpWindow}
+        showLoginWindow={showLoginWindow}
+        handleAlertMessage={handleAlertMessage}
         /> : ''}
 
-      {login | signUp ?
-       <DimBackground 
-        hideLoginOrSignUpWindow={hideLoginOrSignUpWindow} />
-        : ''}
+      {login | signUp ? <DimBackground hideLoginOrSignUpWindow={hideLoginOrSignUpWindow} /> : ''}
 
-      <Header 
-        login={login}
-        isLoggedIn={isLoggedIn}
-        handleLogout={handleLogout}
-        showLoginWindow={showLoginWindow}
-        showSignUpWindow={showSignUpWindow}
-        activeTab={activeTab}
-        handleTabClick={handleTabClick}
-        setPosts={setPosts}
-        handleAlertMessage={handleAlertMessage}
-        mobileMenu={mobileMenu}
-        showMobileMenu={showMobileMenu}
-        hideMobileMenu={hideMobileMenu}
-        toggleTheme={toggleTheme}
-        theme={theme}
-        loginToken={loginToken}
-      />
+      <Header {...headerProperties}/>
 
       <AlertMessage 
         alert={alert}
@@ -207,54 +221,13 @@ function App() {
 
       <>          
         <Routes>
-          <Route path='/All' element={
-            <All
-            {...pageProperties}
-            />}
-          />
-          
-          <Route path='/Development' element={
-            <Development
-            {...pageProperties}
-            />}
-          />
-
-          <Route path='/Admin' element={
-            <Admin
-            {...pageProperties}
-            />}
-          />
-
-          <Route path='/Design' element={
-            <Design
-            {...pageProperties}
-            />}
-          />
-
-          <Route path='/Article/post-id/:id' element={
-            <Article
-            tags={tags}
-            fetchTagData={fetchTagData}
-            options={options}
-            handleAlertMessage={handleAlertMessage}
-            showLoginWindow={showLoginWindow}
-            />}
-          />
-
-          <Route path='/New-Post' element={
-            <NewPost 
-            handleAlertMessage={handleAlertMessage}
-            />} 
-          />
-
-          <Route path='/Home' element={
-            <Home
-            showLoginWindow={showLoginWindow}
-            showSignUpWindow={showSignUpWindow}
-            login={login}
-            signUp={signUp}
-            />}
-          />
+          <Route path='/All' element={<All {...pageProperties}/>}/>
+          <Route path='/Development' element={<Development {...pageProperties}/>}/>
+          <Route path='/Admin' element={<Admin {...pageProperties}/>}/>
+          <Route path='/Design' element={<Design {...pageProperties}/>}/>
+          <Route path='/Article/post-id/:id' element={ <Article {...pageProperties}/>} />
+          <Route path='/New-Post' element={<NewPost {...pageProperties}/>}/>
+          <Route path='' element={<Home {...pageProperties}/>}/>
         </Routes>
 
         {loginToken ? 
