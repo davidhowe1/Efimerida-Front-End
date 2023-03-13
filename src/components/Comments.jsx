@@ -1,6 +1,6 @@
 import { React, useEffect, useState, useRef, useLayoutEffect } from 'react'
 
-function Comments({ token, id, handleCommentsLength, handleAlertMessage }) {
+function Comments({ token, id, handleCommentsLength, handleAlertMessage, showLoginWindow }) {
 
     const [comment, setComment] = useState('')
     const [commentsList, setCommentsList] = useState([])
@@ -22,24 +22,28 @@ function Comments({ token, id, handleCommentsLength, handleAlertMessage }) {
     }
 
     const postComment = () => {
-        fetch(`http://127.0.0.1:8000/post/comment/${id}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${token}`,
-            },
-            body: JSON.stringify({
-                'comment_post': parseInt(id),
-                'comment_text': comment,
+        if (token) {
+            fetch(`http://127.0.0.1:8000/post/comment/${id}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token}`,
+                },
+                body: JSON.stringify({
+                    'comment_post': parseInt(id),
+                    'comment_text': comment,
+                })
             })
-        })
-        .then(response => {
-            response.json()
-            renderComments()
-            handleAlertMessage('Comment posted.')
-        })
-        .catch(error => console.log('Error: ', error))
-        setComment('')
+            .then(response => {
+                response.json()
+                renderComments()
+                handleAlertMessage('Comment posted.')
+            })
+            .catch(error => console.log('Error: ', error))
+            setComment('')
+        } else {
+            showLoginWindow()
+        }
     }
 
     useEffect(() => {

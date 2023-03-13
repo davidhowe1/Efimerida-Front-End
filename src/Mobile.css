@@ -2,12 +2,16 @@
 
 @media screen and (max-width: 500px) {
 
-    header {
+    .header-wrapper {
       position: sticky;
       background-color: #111111;
       top: 0;
       z-index: 1;
-      padding: 5px 4vw;
+      padding: 0px 4vw;
+    }
+
+    .nav-wrapper {
+      display: none;
     }
 
     header h2 {
@@ -187,6 +191,7 @@
 
     .left-column header.blogs {
       top: 48.8px;
+      padding: 0px 4vw;
     }
 
     section.home-screen .container p {
@@ -194,6 +199,10 @@
     }
 
     /* Main Content Styles */
+
+    .posts-container {
+      padding: 0px 4vw;
+    }
   
     section.main-content .right-column {
       top: 14vh;

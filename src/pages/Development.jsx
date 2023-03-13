@@ -3,8 +3,8 @@ import SortingOptions from '../components/SortingOptions'
 import Posts from '../components/Posts'
 import SortingToggleButton from '../components/SortingToggleButton'
 
-function Development({ showUsers, showContent, setPosts, showListOfUsers, users, posts, 
-  storePostContentForRender, showPost, sortType, handleSortTypeChange }) {
+function Development({ showUsers, showContent, setPosts, showListOfUsers, users, 
+  posts, sortType, handleSortTypeChange }) {
 
     const fetchPosts = () => {
       fetch('http://127.0.0.1:8000/post/by_filter/', {
@@ -39,11 +39,9 @@ function Development({ showUsers, showContent, setPosts, showListOfUsers, users,
 
             <div className='posts-container'>
               <Posts 
-                showPost={showPost}
                 posts={posts}
                 showUsers={showUsers}
                 users={users}
-                storePostContentForRender={storePostContentForRender}
                 />
               </div>
           </div>

@@ -4,7 +4,7 @@ import Posts from '../components/Posts'
 import SortingToggleButton from '../components/SortingToggleButton'
 
 function Admin({ showUsers, showContent, showListOfUsers, users, posts, 
-  storePostContentForRender, showPost, setPosts, sortType, handleSortTypeChange }) {
+   setPosts, sortType, handleSortTypeChange }) {
 
     const fetchPosts = () => {
       fetch('http://127.0.0.1:8000/post/by_filter/', {
@@ -39,11 +39,9 @@ function Admin({ showUsers, showContent, showListOfUsers, users, posts,
 
             <div className='posts-container'>
               <Posts 
-                showPost={showPost}
                 posts={posts}
                 showUsers={showUsers}
                 users={users}
-                storePostContentForRender={storePostContentForRender}
                 />
               </div>
             </div>

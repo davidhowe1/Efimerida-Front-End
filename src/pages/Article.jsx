@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Comments from '../components/Comments'
 import { useParams } from 'react-router-dom'
 
-function Article({ fetchTagData, tags, handleAlertMessage }) {
+function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow }) {
     
     const [content, setContent] = useState([])
     const { id } = useParams();
@@ -36,7 +36,8 @@ function Article({ fetchTagData, tags, handleAlertMessage }) {
         }
 
     const likeCurrentPost = () => {
-        fetch(`http://127.0.0.1:8000/post/like/${id}/`, {
+        if (token) {
+            fetch(`http://127.0.0.1:8000/post/like/${id}/`, {
             method: 'POST',
             headers: {
                 'Authorization': `Token ${token}`,
@@ -50,6 +51,9 @@ function Article({ fetchTagData, tags, handleAlertMessage }) {
                 return response.json()
             })
             .catch(error => console.log('Error: ', error))
+        } else {
+            showLoginWindow()
+        }
         }
 
     useEffect(() => {
@@ -104,6 +108,7 @@ function Article({ fetchTagData, tags, handleAlertMessage }) {
                         id={id}
                         handleCommentsLength={handleCommentsLength}
                         handleAlertMessage={handleAlertMessage}
+                        showLoginWindow={showLoginWindow}
                         />
                         
                         <span>

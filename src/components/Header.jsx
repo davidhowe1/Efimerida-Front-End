@@ -5,35 +5,42 @@ import MobileMenu from './MobileMenu'
 import NewPostButton from './NewPostButton'
 import Searchbar from './Searchbar'
 
-function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handLogout, 
+function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handleLogout, 
   activeTab, handleTabClick, showNewPostForm, setPosts, mobileMenu, showMobileMenu,
-  hideMobileMenu, toggleTheme, theme }) {
+  hideMobileMenu, toggleTheme, theme, loginToken }) {
 
   return (
     <>
-      <header>
-        <h2>Efimerida</h2>
-        <div className='login-buttons'>
-          {isLoggedIn ? 
-            <>
-              <button onClick={toggleTheme} className='theme'>
-                {theme === 'light' ? <MoonFill /> : <SunFill />}
-              </button>
-              <button onClick={handLogout} className='login'>Logout</button>
-            </> 
-            : 
-            <>
-              <button onClick={showLoginWindow} className='login'>Login</button>
-              <button onClick={showSignUpWindow} className='sign-up'>Sign Up</button>
-            </>
-            }
-        </div>
+      <div className='header-wrapper'>
+        <header>
+          <Link to='/Home'>
+            <h2>Efimerida</h2>
+          </Link>
 
-        {isLoggedIn ? <div onClick={showMobileMenu} className='mobile-menu-toggle'>
-            <List />
-        </div> : ''}
+          <div className='login-buttons'>
+            {isLoggedIn ? 
+              <>
+                <button onClick={toggleTheme} className='theme'>
+                  {theme === 'light' ? <MoonFill /> : <SunFill />}
+                </button>
+                <button onClick={handleLogout} className='login'>Logout</button>
+              </> 
+              : 
+              <>
+                <button onClick={toggleTheme} className='theme'>
+                  {theme === 'light' ? <MoonFill /> : <SunFill />}</button>
+                <button onClick={showLoginWindow} className='login'>Login</button>
+                <button onClick={showSignUpWindow} className='sign-up'>Sign Up</button>
+              </>
+              }
+          </div>
 
-      </header>
+          {isLoggedIn ? <div onClick={showMobileMenu} className='mobile-menu-toggle'>
+              <List />
+          </div> : ''}
+
+        </header>
+      </div>
 
       {isLoggedIn ? <div className={mobileMenu ? 'mobile-menu' : 'mobile-menu hidden'}>
         <MobileMenu 
@@ -41,7 +48,7 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handLogout,
           activeTab={activeTab}
           setPosts={setPosts}
           showNewPostForm={showNewPostForm}
-          handLogout={handLogout}
+          handleLogout={handleLogout}
           hideMobileMenu={hideMobileMenu}
           toggleTheme={toggleTheme}
           theme={theme}
@@ -49,7 +56,7 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handLogout,
         />
       </div> : ''}
 
-      {isLoggedIn ? 
+      <div className='nav-wrapper'>
         <nav>
           <div>
             <ul>
@@ -86,8 +93,12 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handLogout,
             />
           </div>
 
-          <NewPostButton />
-        </nav> : ''}
+          {loginToken ? 
+          <NewPostButton
+          /> : ''}
+          
+        </nav>
+      </div>
     </>
   )
 }

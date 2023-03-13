@@ -10,6 +10,8 @@ function NewPost({ handleAlertMessage }) {
     const [tags, setTags] = useState([])
 
     const navigateToAllPosts = useNavigate()
+    const theme = localStorage.getItem('theme')
+    const isDarkMode = theme === 'dark'
   
     const tagData = [
       { id: 4, tag_name: 'Admin' },
@@ -94,25 +96,27 @@ function NewPost({ handleAlertMessage }) {
             <input type='file' onChange={handleImageChange} />
 
             <label><h4>Post Text</h4></label>
-          
+        
             <Editor
-                apiKey='30x0pv2r288ceylll8uxscndpcqpntp1bkd20dubo9ekg1qu'
-                onInit={(evt, editor) => editorRef.current = editor}
-                initialValue="<p>Write your text here.</p>"
-                init={{
+              apiKey='30x0pv2r288ceylll8uxscndpcqpntp1bkd20dubo9ekg1qu'
+              onInit={(evt, editor) => editorRef.current = editor}
+              initialValue="<p>Write your text here.</p>"
+              init={{
+                skin: isDarkMode ? 'oxide-dark' : 'oxide',
+                content_css: isDarkMode ? 'dark' : 'default',
                 height: 500,
                 menubar: false,
                 plugins: [
-                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                    'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                  'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                  'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                  'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
                 ],
                 toolbar: 'undo redo | blocks | ' +
-                    'bold italic forecolor | alignleft aligncenter ' +
-                    'alignright alignjustify | bullist numlist outdent indent | ' +
-                    'removeformat | help',
+                  'bold italic forecolor | alignleft aligncenter ' +
+                  'alignright alignjustify | bullist numlist outdent indent | ' +
+                  'removeformat | help',
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                }}
+              }}
             />
   
             <label><h4>Post Tags</h4></label>

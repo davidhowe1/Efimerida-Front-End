@@ -30,7 +30,7 @@ function App() {
   const loginToken = !!localStorage.getItem('token')
   const [isLoggedIn, setIsLoggedIn] = useState(loginToken)
 
-  const handLogout = () => {
+  const handleLogout = () => {
     localStorage.removeItem('token')
     setIsLoggedIn(false)
     hideMobileMenu()
@@ -144,6 +144,19 @@ function App() {
     setThemeOnRender()
   }, [theme])
 
+  const pageProperties = {
+    options,
+    fetchPosts,
+    posts,
+    setPosts,
+    users,
+    showUsers,
+    showContent,
+    showListOfUsers,
+    sortType,
+    handleSortTypeChange,
+  };
+
   return (
     <>
       {login ? 
@@ -171,7 +184,7 @@ function App() {
       <Header 
         login={login}
         isLoggedIn={isLoggedIn}
-        handLogout={handLogout}
+        handleLogout={handleLogout}
         showLoginWindow={showLoginWindow}
         showSignUpWindow={showSignUpWindow}
         activeTab={activeTab}
@@ -183,6 +196,7 @@ function App() {
         hideMobileMenu={hideMobileMenu}
         toggleTheme={toggleTheme}
         theme={theme}
+        loginToken={loginToken}
       />
 
       <AlertMessage 
@@ -191,97 +205,64 @@ function App() {
         theme={theme}
       />
 
-      {isLoggedIn ? 
-        <>          
-          <Routes>
-            <Route path='/All' element={
-              <All
-              options={options}
-              fetchPosts={fetchPosts}
-              posts={posts}
-              setPosts={setPosts}
-              users={users}
-              showUsers={showUsers}
-              showContent={showContent}
-              showListOfUsers={showListOfUsers}
-              sortType={sortType}
-              handleSortTypeChange={handleSortTypeChange}
-              />}
-            />
-            
-            <Route path='/Development' element={
-              <Development
-              options={options}
-              fetchPosts={fetchPosts}
-              posts={posts}
-              setPosts={setPosts}
-              users={users}
-              showUsers={showUsers}
-              showContent={showContent}
-              showListOfUsers={showListOfUsers}
-              sortType={sortType}
-              handleSortTypeChange={handleSortTypeChange}
-              />}
-            />
+      <>          
+        <Routes>
+          <Route path='/All' element={
+            <All
+            {...pageProperties}
+            />}
+          />
+          
+          <Route path='/Development' element={
+            <Development
+            {...pageProperties}
+            />}
+          />
 
-            <Route path='/Admin' element={
-              <Admin
-              options={options}
-              fetchPosts={fetchPosts}
-              posts={posts}
-              setPosts={setPosts}
-              users={users}
-              showUsers={showUsers}
-              showContent={showContent}
-              showListOfUsers={showListOfUsers}
-              sortType={sortType}
-              handleSortTypeChange={handleSortTypeChange}
-              />}
-            />
+          <Route path='/Admin' element={
+            <Admin
+            {...pageProperties}
+            />}
+          />
 
-            <Route path='/Design' element={
-              <Design
-              options={options}
-              fetchPosts={fetchPosts}
-              posts={posts}
-              setPosts={setPosts}
-              users={users}
-              showUsers={showUsers}
-              showContent={showContent}
-              showListOfUsers={showListOfUsers}
-              sortType={sortType}
-              handleSortTypeChange={handleSortTypeChange}
-              />}
-            />
+          <Route path='/Design' element={
+            <Design
+            {...pageProperties}
+            />}
+          />
 
-            <Route path='/Article/post-id/:id' element={
-              <Article
-              tags={tags}
-              fetchTagData={fetchTagData}
-              options={options}
-              handleAlertMessage={handleAlertMessage}
-              />}
-            />
+          <Route path='/Article/post-id/:id' element={
+            <Article
+            tags={tags}
+            fetchTagData={fetchTagData}
+            options={options}
+            handleAlertMessage={handleAlertMessage}
+            showLoginWindow={showLoginWindow}
+            />}
+          />
 
-            <Route path='/New-Post' element={
-              <NewPost 
-              handleAlertMessage={handleAlertMessage}
-              />} 
-            />
-          </Routes>
+          <Route path='/New-Post' element={
+            <NewPost 
+            handleAlertMessage={handleAlertMessage}
+            />} 
+          />
 
-          <NewPostButtonMobile />
-        </>
-        : 
+          <Route path='/Home' element={
+            <Home
+            showLoginWindow={showLoginWindow}
+            showSignUpWindow={showSignUpWindow}
+            login={login}
+            signUp={signUp}
+            />}
+          />
+        </Routes>
 
-        <Home 
-        showLoginWindow={showLoginWindow}
-        showSignUpWindow={showSignUpWindow}
-        login={login}
-        signUp={signUp}
-        />}
+        {loginToken ? 
+        <NewPostButtonMobile
+        /> : ''}
+      </>
 
-        <Footer />
+      <Footer />
     </>
   )
 }

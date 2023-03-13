@@ -3,7 +3,7 @@ import { BoxArrowRight, Code, Newspaper, Pencil, MoonFill, Tools, X, SunFill } f
 import { Link } from 'react-router-dom'
 import Searchbar from './Searchbar'
 
-function MobileMenu({ handleTabClick, activeTab, setPosts, handLogout, 
+function MobileMenu({ handleTabClick, activeTab, setPosts, handleLogout, 
     hideMobileMenu, mobileMenu, toggleTheme, theme }) {
   return (
     <div className='menu'>
@@ -47,7 +47,7 @@ function MobileMenu({ handleTabClick, activeTab, setPosts, handLogout,
         </ul>
 
         <ul>
-            <li onClick={handLogout}>
+            <li onClick={handleLogout}>
                 <BoxArrowRight /> Logout
             </li>
 

@@ -2,7 +2,7 @@ import { React } from 'react'
 import { PencilSquare } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
 
-function NewPostButton({}) {
+function NewPostButton() {
   return (
     <Link to='/New-Post'>
       <button className='new-post'>Write
