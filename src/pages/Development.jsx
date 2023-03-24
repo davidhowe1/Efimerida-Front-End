@@ -4,7 +4,8 @@ import Posts from '../components/Posts'
 import SortingToggleButton from '../components/SortingToggleButton'
 
 function Development({ showUsers, showContent, setPosts, showListOfUsers, users, 
-  posts, sortType, handleSortTypeChange }) {
+  posts, sortType, handleSortTypeChange, renderProfileImages, unsubscribeFromUser, 
+  setShowUsers, loginToken }) {
 
     const fetchPosts = () => {
       fetch('http://127.0.0.1:8000/post/by_filter/', {
@@ -41,7 +42,11 @@ function Development({ showUsers, showContent, setPosts, showListOfUsers, users,
               <Posts 
                 posts={posts}
                 showUsers={showUsers}
+                setShowUsers={setShowUsers}
                 users={users}
+                loginToken={loginToken}
+                renderProfileImages={renderProfileImages}
+                unsubscribeFromUser={unsubscribeFromUser}
                 />
               </div>
           </div>

@@ -17,10 +17,20 @@ import AlertMessage from './components/AlertMessage';
 import Footer from './components/Footer';
 import NewPost from './pages/NewPost';
 import NewPostButtonMobile from './components/NewPostButtonMobile';
+import Profile from './pages/Profile';
+import Subscriptions from './pages/Subscriptions';
+import User from './pages/User';
 
 function App() {
 
   const [login, setLogin] = useState(false)
+  const [signUp, setSignUp] = useState(false)
+  const token = localStorage.getItem('token')
+  const loginToken = !!localStorage.getItem('token')
+  const userData = JSON.parse(localStorage.getItem('user_data'))
+  const userId = userData ? userData.user_id : ''
+  const [isLoggedIn, setIsLoggedIn] = useState(loginToken)
+
   const showLoginWindow = () => {
     setLogin(true)
     hideSignUpWindow()
@@ -28,17 +38,18 @@ function App() {
   }
   const hideLoginWindow = () => setLogin(false)
 
-  const loginToken = !!localStorage.getItem('token')
-  const [isLoggedIn, setIsLoggedIn] = useState(loginToken)
-
   const handleLogout = () => {
-    localStorage.removeItem('token')
+    removeDetailsFromLocalStorage()
     setIsLoggedIn(false)
     hideMobileMenu()
     handleAlertMessage('Logged Out')
   }
 
-  const [signUp, setSignUp] = useState(false)
+  const removeDetailsFromLocalStorage = () => {
+    localStorage.removeItem('user_data')
+    localStorage.removeItem('token')
+  }
+
   const showSignUpWindow = () => {
     setSignUp(true)
     hideLoginWindow()
@@ -50,10 +61,6 @@ function App() {
   const [mobileMenu, setMobileMenu] = useState(false)
   const showMobileMenu = () => setMobileMenu(true)
   const hideMobileMenu = () => setMobileMenu(false)
-
-  const [showUsers, setShowUsers] = useState(false)
-  const showContent = () => setShowUsers(false)
-  const showListOfUsers = () => setShowUsers(true)
 
   const [sortType, setSortType] = useState('latest')
   const handleSortTypeChange = (type) => {
@@ -95,18 +102,76 @@ function App() {
   }
 
   const [users, setUsers] = useState([])
+  const subscribedUsers = users.map(user => user.username)
 
   const fetchUserList = () => {
-    fetch('http://127.0.0.1:8000/user/list/?format=json', options)
+    if (loginToken) {
+      fetch('http://127.0.0.1:8000/user/get_subscribe/', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Token ${token}`,
+      }
+    })
       .then(response => response.json())
       .then(data => setUsers(data.results))
       .catch(err => console.error(err))
+    } else {
+      return
+    }
+  }  
+
+  const renderProfileImages = (imageURL) => {
+    if (!imageURL) {
+        return <img src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png' alt='Authors Profile Picture'/>
+    } else if (imageURL.includes('http://127.0.0.1:8000')) {
+        return <img src={imageURL} alt='Authors Profile Picture'/>
+    } else {
+        return <img src={`http://127.0.0.1:8000/${imageURL}`} alt='Authors Profile Picture'/>
+    }
+  }
+
+  const subscribeToUser = (userId) => {
+    if (loginToken) {
+    fetch(`http://127.0.0.1:8000/user/subscribe/${userId}/`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Token ${token}`,
+      }
+    })
+    .then(response => {
+      if ( response.ok ) {
+        handleAlertMessage('Subscription Added')
+        fetchUserList()
+      } else {
+        handleAlertMessage('Subscription already added')
+      }
+    })
+    .catch(error => console.log(error))
+  } else { showLoginWindow() }
+  }
+
+
+  const unsubscribeFromUser = (userId) => {
+    fetch(`http://127.0.0.1:8000/user/subscribe/${userId}/`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Token ${token}`,
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+      handleAlertMessage('Subscription Removed')
+      fetchUserList()
+    }
+    })
+    .catch(error => console.log(error))
   }
 
   useEffect(() => {
     fetchUserList()
     setActiveTab(localStorage.getItem('content-tab'))
   }, [])
+
 
   const fetchTagData = () => {
     fetch('http://127.0.0.1:8000/post/tag_list/', options)
@@ -118,12 +183,17 @@ function App() {
   const [tags, setTags] = useState([])
 
   const [activeTab, setActiveTab] = useState('All')
-  const handleTabClick = (tab) => {
-    setActiveTab(tab)
-    localStorage.setItem('content-tab', tab)
-    hideMobileMenu()
-    scrollTo(0, 0)
+  const currentPageURL = window.location.pathname;
+
+  const handleTabChange = () => {
+    setActiveTab(currentPageURL)
+    setMobileMenu(false)
   }
+
+  useEffect(() => {
+    handleTabChange()
+  }, [currentPageURL])
+
 
   const [theme, setTheme] = useState('light')
   const toggleTheme = () => {
@@ -151,14 +221,16 @@ function App() {
   }, [theme])
 
   const pageProperties = {
+    userData,
+    userId,
     options,
     fetchPosts,
+    fetchUserList,
     posts,
     setPosts,
     users,
-    showUsers,
-    showContent,
-    showListOfUsers,
+    subscribeToUser,
+    unsubscribeFromUser,
     sortType,
     handleSortTypeChange,
     tags,
@@ -168,17 +240,19 @@ function App() {
     login,
     signUp,
     loginToken,
-    handleAlertMessage
+    handleAlertMessage,
+    renderProfileImages,
+    subscribedUsers
   };
 
   const headerProperties = {
     login,
+    userData,
     isLoggedIn,
     handleLogout,
     showLoginWindow,
     showSignUpWindow,
     activeTab,
-    handleTabClick,
     setPosts,
     handleAlertMessage,
     mobileMenu,
@@ -194,6 +268,7 @@ function App() {
     <>
       {login ? 
         <Login 
+        userId={userId}
         showSignUpWindow={showSignUpWindow}
         hideLoginWindow={hideLoginWindow}
         setIsLoggedIn={setIsLoggedIn}
@@ -228,6 +303,9 @@ function App() {
           <Route path='/Article/post-id/:id' element={ <Article {...pageProperties}/>} />
           <Route path='/New-Post' element={<NewPost {...pageProperties}/>}/>
           <Route path='' element={<Home {...pageProperties}/>}/>
+          <Route path='/Profile' element={<Profile {...pageProperties}/>}/>
+          <Route path='/User/:id' element={<User {...pageProperties}/>}/>
+          <Route path='/Subscriptions' element={<Subscriptions {...pageProperties}/>}/>
         </Routes>
 
         {loginToken ? 

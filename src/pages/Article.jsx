@@ -1,17 +1,22 @@
 import { React, useState, useEffect, useRef } from 'react'
 import { Chat, ChevronLeft, Eye, Heart } from 'react-bootstrap-icons'
-import { Link } from 'react-router-dom'
 import Comments from '../components/Comments'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow }) {
+function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow, 
+    renderProfileImages, subscribeToUser, subscribedUsers, unsubscribeFromUser, userData, userId }) {
     
     const [content, setContent] = useState([])
+    const [userSubscribeId, setUserSubscribeId] = useState()
     const { id } = useParams();
-    const token = localStorage.getItem('token')
-
     const [commentsLength, setCommentsLength] = useState(0)
     const handleCommentsLength = (length) => setCommentsLength(length)
+    const username = userData ? userData.username : ''
+    const navigateToAllPosts = useNavigate()
+
+    const token = localStorage.getItem('token')
 
     const commentsRef = useRef()
     const scrollToComments = () => {
@@ -31,7 +36,10 @@ function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow }) {
                 }
             })
             .then(response => response.json())
-            .then(data => setContent([data]))
+            .then(data => {
+                setContent([data])
+                setUserSubscribeId(data.post_author.id)
+            })
             .catch(error => console.log('Error: ', error))
         }
 
@@ -54,8 +62,26 @@ function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow }) {
         } else {
             showLoginWindow()
         }
-        }
+    }
 
+    const deletePost = (e) => {
+        e.preventDefault()
+        if (confirm('Are you sure you want to delete this post?')) {
+            fetch(`http://127.0.0.1:8000/post/detail/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Token ${token}`
+                }
+                })
+                .then(response => {
+                    response.json()
+                    navigateToAllPosts('/All')
+                })
+                .then(data => console.log(data))
+                .catch(error => console.log('Error: ', error))
+        }
+    }
+        
     useEffect(() => {
         renderPostContent()
         fetchTagData();
@@ -75,28 +101,35 @@ function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow }) {
         return postTags ? postTags.tag_name : null;
     });
 
-    const previousContentTab = localStorage.getItem('content-tab')
-
   return (
     <>
         {content ? content.map(article => (
             <article key={article.id} className='post'>
                 <div className='close-button'> 
-                    <h1>{article.post_title}</h1>
-                    <Link to={`/${previousContentTab}`}>
-                        <span>
-                            <ChevronLeft
-                            style={{height: '20px', width: '20px', padding: '0px 5px'}} />
-                            <p>{`Back to ${previousContentTab}`}</p>
-                        </span>
-                    </Link>
+                    <h1>
+                        {article.post_title}
+                    </h1>
+
+                    <span onClick={() => {history.back()}}>
+                        <ChevronLeft
+                        style={{height: '20px', width: '20px', padding: '0px 5px'}} />
+                        <p>{`Back`}</p>
+                    </span>
                 </div>
 
                 <div className='article-container'>
                     <div className='article-body'>
                         <img src={article.post_image.includes('http://127.0.0.1:8000') ? 
                         article.post_image : `http://127.0.0.1:8000${article.post_image}`} alt="" />
+                        
                         <p dangerouslySetInnerHTML={{__html: article.post_text}}></p>
+
+                        <div className='tags'>
+                            <h3>Tags</h3>
+                            {matchingTags ? matchingTags.map((tag, index) => (
+                                    <p key={index} className='tag'>{tag}</p>
+                                )) : ''}
+                        </div>
 
                         <h3 
                         ref={commentsRef} 
@@ -109,6 +142,7 @@ function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow }) {
                         handleCommentsLength={handleCommentsLength}
                         handleAlertMessage={handleAlertMessage}
                         showLoginWindow={showLoginWindow}
+                        renderProfileImages={renderProfileImages}
                         />
                         
                         <span>
@@ -117,11 +151,32 @@ function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow }) {
                     </div>
 
                     <div className='author-details'>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt=""/>
+                        <Link to={userId === userSubscribeId ? `/Profile` : `/User/${userSubscribeId}`}>
+                            <div className='image-container'>
+                                {renderProfileImages(article.post_author.user_image)}
+                            </div>
+                        </Link>
 
                         <div>
-                            <h3>{article.post_author.username}</h3>
-                            <p className='date-and-time'>{article.post_created_date.substring(0, 16).replace(/T/, ', ')}</p>
+                            <div className='author'>
+                                <h3>{article.post_author.username}</h3>
+                                
+                                <p className='date-and-time'>{article.post_created_date.substring(0, 16).replace(/T/, ', ')}</p>
+                                
+                                <button 
+                                    onClick={() => {
+                                        {subscribedUsers.includes(article.post_author.username)
+                                        ? unsubscribeFromUser(userSubscribeId) 
+                                        : subscribeToUser(userSubscribeId)}
+                                    }} 
+                                    className={subscribedUsers.includes(article.post_author.username)
+                                    ? 'new-post subscribed'
+                                    : 'new-post'}>
+                                    {subscribedUsers.includes(article.post_author.username)
+                                    ? ''
+                                    : 'Subscribe'}
+                                </button>
+                            </div>
 
                             <span>
                                 <p title={`${article.post_views} have viewed this post so far`}>
@@ -137,11 +192,9 @@ function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow }) {
                                 </p>
                             </span>
 
-                            <h3 className='tags'>Tags</h3>
-                            
-                            {matchingTags ? matchingTags.map((tag, index) => (
-                                <p key={index} className='tag'>{tag}</p>
-                            )) : ''}
+                            {username === article.post_author.username ? <div className='post-options'>
+                                <button onClick={deletePost} className='delete'>Delete Post</button>
+                            </div> : ''}
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { useNavigate } from 'react-router-dom'
 
@@ -10,6 +10,9 @@ function NewPost({ handleAlertMessage, loginToken }) {
   if (url === '/New-Post' && !loginToken) {
     navigateToAllPosts('/All')
   }
+
+  const theme = localStorage.getItem('theme')
+  const editorRef = useRef(null);
 
   const [title, setTitle] = useState('');
   const [image, setImage] = useState(null);
@@ -27,8 +30,6 @@ function NewPost({ handleAlertMessage, loginToken }) {
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
-
-  const editorRef = useRef(null);
 
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
@@ -88,8 +89,6 @@ function NewPost({ handleAlertMessage, loginToken }) {
     e.preventDefault()
     if (confirm('Are you sure you want to cancel this post?') == true) {
       navigateToAllPosts('/All')
-    } else {
-      return null
     }
   }
 
@@ -121,10 +120,14 @@ function NewPost({ handleAlertMessage, loginToken }) {
               'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
             ],
             toolbar: 'undo redo | blocks | ' +
-              'bold italic forecolor | alignleft aligncenter ' +
+              'bold italic | alignleft aligncenter ' +
               'alignright alignjustify | bullist numlist outdent indent | ' +
               'removeformat | help',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+            content_style: `body { 
+              font-family:Helvetica,sans-serif;
+              font-size:14px;
+              color: unset;
+              `
           }}
         />
 

@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import { X } from 'react-bootstrap-icons'
 import { useNavigate } from 'react-router-dom'
 
-function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn, handleAlertMessage, setActiveTab }) {
+function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn, handleAlertMessage }) {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -27,16 +27,20 @@ function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn, handleAlertMe
           handleAlertMessage('Error: Please make sure your email and password are correct')
         }
       }).then(data => {
-        localStorage.setItem('token', data.token)
+        saveDetailsToLocalStorage(data)
         setIsLoggedIn(!!localStorage.getItem('token'))
-        handleAlertMessage('Welcome Back User')
+        handleAlertMessage(`Welcome Back ${data.username}`)
         hideLoginWindow()
         navigateToAllPosts('/All')
-        setActiveTab('All')
       }).catch(err => {
         console.error('Error:', err)
       })
     }
+  }
+
+  const saveDetailsToLocalStorage = (data) => {
+    localStorage.setItem('user_data', JSON.stringify(data))
+    localStorage.setItem('token', data.token)
   }
 
   const validateLogin = () => {

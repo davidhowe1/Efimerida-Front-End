@@ -1,9 +1,10 @@
 import { React, useEffect, useState, useRef, useLayoutEffect } from 'react'
 
-function Comments({ token, id, handleCommentsLength, handleAlertMessage, showLoginWindow }) {
+function Comments({ token, id, handleCommentsLength, handleAlertMessage, showLoginWindow, renderProfileImages }) {
 
     const [comment, setComment] = useState('')
     const [commentsList, setCommentsList] = useState([])
+    const userImage = localStorage.getItem('user_image')
 
     const renderComments = () => {
         fetch(`http://127.0.0.1:8000/post/comment/${id}`, {
@@ -64,7 +65,10 @@ function Comments({ token, id, handleCommentsLength, handleAlertMessage, showLog
   return (
     <section className='comments'>
         <div className='add-comment'>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="" />
+            <img src={userImage ? 
+                `http://127.0.0.1:8000/images/${userImage}`
+                : 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
+                } alt="" />
             <textarea 
                 ref={textareaRef}
                 placeholder='What do you think?'
@@ -81,7 +85,7 @@ function Comments({ token, id, handleCommentsLength, handleAlertMessage, showLog
             {commentsList ? commentsList.map((comment, index) => (
                 <li key={index}>
                 <div className='user-details'>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="" />
+                    <div className='image-container'>{renderProfileImages(comment.comment_author.user_image)}</div>
                     <h4>{comment.comment_author.username}</h4>
                     <p>{comment.comment_created_date.substring(0, 16).replace(/T/, ', ')}</p>
                 </div>

@@ -1,11 +1,11 @@
 import React from 'react'
-import { BoxArrowRight, BoxArrowLeft, Code, Newspaper, Pencil, MoonFill, Tools, X, SunFill, PersonFillAdd } from 'react-bootstrap-icons'
+import { BoxArrowRight, BoxArrowLeft, Code, Newspaper, Pencil, MoonFill, Tools, X, SunFill, PersonFillAdd, PersonGear } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
 import Searchbar from './Searchbar'
 
-function MobileMenu({ handleTabClick, activeTab, setPosts, handleLogout, 
+function MobileMenu({ activeTab, setPosts, handleLogout, 
     hideMobileMenu, mobileMenu, toggleTheme, theme, isLoggedIn, showLoginWindow, 
-    showSignUpWindow}) {
+    showSignUpWindow, username }) {
   return (
     <div className='menu'>
         <header>
@@ -22,35 +22,54 @@ function MobileMenu({ handleTabClick, activeTab, setPosts, handleLogout,
         </div>
         
         <ul>
-            <Link onClick={() => handleTabClick('All')} to='/All'>
-            <li className={activeTab === 'All' ? 'active' : ''}>
+            <Link to='/All'>
+            <li className={activeTab === '/All' ? 'active' : ''}>
                 <Newspaper /> All Blogs
             </li>
             </Link>
 
-            <Link onClick={() => handleTabClick('Development')} to='/Development'>
-            <li className={activeTab === 'Development' ? 'active' : ''}>
+            <Link to='/Development'>
+            <li className={activeTab === '/Development' ? 'active' : ''}>
                 <Code /> Development
             </li>
             </Link>
 
-            <Link onClick={() => handleTabClick('Admin')} to='/Admin'>
-            <li className={activeTab === 'Admin' ? 'active' : ''}>
+            <Link to='/Admin'>
+            <li className={activeTab === '/Admin' ? 'active' : ''}>
                 <Tools /> Admin
             </li>
             </Link>
 
-            <Link onClick={() => handleTabClick('Design')} to='/Design'>
-            <li className={activeTab === 'Design' ? 'active' : ''}>
+            <Link to='/Design'>
+            <li className={activeTab === '/Design' ? 'active' : ''}>
                 <Pencil /> Design
             </li>
             </Link>
         </ul>
 
         <ul>
-            {isLoggedIn ? <li onClick={handleLogout}>
-                <BoxArrowLeft /> Logout
-            </li> :
+
+            {username ? <h3>Hello {username} 👋</h3> : ' '}
+
+            <li onClick={toggleTheme}>
+                {theme === 'light' ? 
+                <><MoonFill /> Dark Mode</> : <><SunFill /> Light Mode</>}
+            </li>
+
+            {isLoggedIn ? 
+            
+            <>
+                <Link to='/Profile'>
+                    <li onClick={hideMobileMenu}>
+                        <PersonGear /> Profile
+                    </li>
+                </Link>
+
+                <li onClick={handleLogout}>
+                    <BoxArrowLeft /> Logout
+                </li>
+            </>
+            :
             <>
                 <li onClick={showLoginWindow}>
                     <BoxArrowRight /> Login
@@ -61,11 +80,6 @@ function MobileMenu({ handleTabClick, activeTab, setPosts, handleLogout,
                 </li>
             </>
             }
-
-            <li onClick={toggleTheme}>
-                {theme === 'light' ? 
-                <><MoonFill /> Dark Mode</> : <><SunFill /> Light Mode</>}
-            </li>
         </ul>
     </div>
   )

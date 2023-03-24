@@ -9,7 +9,7 @@ function Searchbar({ setPosts, hideMobileMenu, mobileMenu }) {
   const navigateToPosts = useNavigate()
 
   const handleSearchQuery = async () => {
-    if (url === '/New-Post') {
+    if (url !== '/All') {
       await navigateToPosts('/All')
     }
     await fetchSearchQuery()
@@ -47,7 +47,7 @@ function Searchbar({ setPosts, hideMobileMenu, mobileMenu }) {
   return (
     <span className='search-bar-container'>
       <input 
-      placeholder='Search Efimerida'
+      placeholder='Try Design, Post or Data...'
       onChange={(e) => setSearchQuery(e.target.value)}
       onKeyDown={handleKeyDown}
       className='search-bar' 

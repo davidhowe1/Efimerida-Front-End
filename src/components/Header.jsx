@@ -1,5 +1,5 @@
 import { React } from 'react'
-import { List, MoonFill, SunFill } from 'react-bootstrap-icons'
+import { List, MoonFill, SunFill, PersonCircle } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
 import MobileMenu from './MobileMenu'
 import NewPostButton from './NewPostButton'
@@ -7,28 +7,31 @@ import Searchbar from './Searchbar'
 
 function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handleLogout, 
   activeTab, handleTabClick, showNewPostForm, setPosts, mobileMenu, showMobileMenu,
-  hideMobileMenu, toggleTheme, theme, loginToken }) {
+  hideMobileMenu, toggleTheme, theme, loginToken, userData }) {
+
+    const username = userData ? userData.username : ''
 
     const mobileMenuProps = {
-          handleTabClick,
-          activeTab,
-          setPosts,
-          showNewPostForm,
-          handleLogout,
-          hideMobileMenu,
-          toggleTheme,
-          theme,
-          mobileMenu,
-          isLoggedIn,
-          showLoginWindow,
-          showSignUpWindow,
+      username,
+      handleTabClick,
+      activeTab,
+      setPosts,
+      showNewPostForm,
+      handleLogout,
+      hideMobileMenu,
+      toggleTheme,
+      theme,
+      mobileMenu,
+      isLoggedIn,
+      showLoginWindow,
+      showSignUpWindow,
     }
 
   return (
     <>
       <div className='header-wrapper'>
         <header>
-          <Link onClick={() => handleTabClick('All')} to={loginToken ? '/All' : ''}>
+          <Link to={loginToken ? '/All' : ''}>
             <h2>Efimerida</h2>
           </Link>
 
@@ -38,6 +41,13 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handleLogout,
                 <button onClick={toggleTheme} className='theme'>
                   {theme === 'light' ? <MoonFill /> : <SunFill />}
                 </button>
+
+                  <Link to='/Profile'>
+                    <button className='profile'>
+                      <p>{username}</p>
+                      <PersonCircle />
+                    </button>
+                  </Link>
                 <button onClick={handleLogout} className='login'>Logout</button>
               </> 
               : 
@@ -67,26 +77,26 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handleLogout,
         <nav>
           <div>
             <ul>
-              <Link onClick={() => handleTabClick('All')} to='/All'>
-                <li className={activeTab === 'All' ? 'active' : ''}>
-                  All Blogs
+              <Link to='/All'>
+                <li className={activeTab === '/All' ? 'active' : ''}>
+                  All Posts
                 </li>
               </Link>
 
-              <Link onClick={() => handleTabClick('Development')} to='/Development'>
-                <li className={activeTab === 'Development' ? 'active' : ''}>
+              <Link to='/Development'>
+                <li className={activeTab === '/Development' ? 'active' : ''}>
                   Development
                 </li>
               </Link>
 
-              <Link onClick={() => handleTabClick('Admin')} to='/Admin'>
-                <li className={activeTab === 'Admin' ? 'active' : ''}>
+              <Link to='/Admin'>
+                <li className={activeTab === '/Admin' ? 'active' : ''}>
                   Admin
                 </li>
               </Link>
 
-              <Link onClick={() => handleTabClick('Design')} to='/Design'>
-                <li className={activeTab === 'Design' ? 'active' : ''}>
+              <Link to='/Design'>
+                <li className={activeTab === '/Design' ? 'active' : ''}>
                   Design
                 </li>
               </Link>
@@ -95,6 +105,7 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handleLogout,
 
           <div className='search'>
             <Searchbar 
+              {...mobileMenuProps}
               setPosts={setPosts}
               mobileMenu={mobileMenu}
             />

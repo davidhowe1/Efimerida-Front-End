@@ -4,7 +4,8 @@ import Posts from '../components/Posts'
 import SortingToggleButton from '../components/SortingToggleButton'
 
 function All({ options, fetchPosts, showUsers, showContent, setPosts, showListOfUsers,
-   users, posts, sortType, handleSortTypeChange }) {
+   users, posts, sortType, handleSortTypeChange, renderProfileImages, unsubscribeFromUser, 
+   setShowUsers, loginToken }) {
 
     useEffect(() => {
       fetchPosts(options)
@@ -30,7 +31,11 @@ function All({ options, fetchPosts, showUsers, showContent, setPosts, showListOf
               <Posts 
                 posts={posts}
                 showUsers={showUsers}
+                setShowUsers={setShowUsers}
                 users={users}
+                loginToken={loginToken}
+                renderProfileImages={renderProfileImages}
+                unsubscribeFromUser={unsubscribeFromUser}
                 />
               </div>
             </div>
