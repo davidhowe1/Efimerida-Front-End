@@ -27,8 +27,8 @@ function App() {
   const [signUp, setSignUp] = useState(false)
   const token = localStorage.getItem('token')
   const loginToken = !!localStorage.getItem('token')
-  const userData = JSON.parse(localStorage.getItem('user_data'))
-  const userId = userData ? userData.user_id : ''
+  let userData = JSON.parse(localStorage.getItem('user_data'))
+  const userId = userData ? userData.id : ''
   const [isLoggedIn, setIsLoggedIn] = useState(loginToken)
 
   const showLoginWindow = () => {
@@ -43,6 +43,10 @@ function App() {
     setIsLoggedIn(false)
     hideMobileMenu()
     handleAlertMessage('Logged Out')
+  }
+
+  const saveDetailsToLocalStorage = (data) => {
+    localStorage.setItem('user_data', JSON.stringify(data))
   }
 
   const removeDetailsFromLocalStorage = () => {
@@ -92,6 +96,13 @@ function App() {
       headers: {
         'Content-Type': 'application/json'
       }
+  }
+
+  const fetchUserData = () => {
+    fetch(`http://127.0.0.1:8000/user/detail/${userId}`, options)
+    .then(response => response.json())
+    .then(data => saveDetailsToLocalStorage(data))
+    .catch(err => console.error(err))
   }
 
   const fetchPosts = () => {
@@ -224,6 +235,7 @@ function App() {
     userData,
     userId,
     options,
+    fetchUserData,
     fetchPosts,
     fetchUserList,
     posts,
@@ -260,7 +272,8 @@ function App() {
     hideMobileMenu,
     toggleTheme,
     theme,
-    loginToken
+    loginToken,
+    renderProfileImages
   };
   
 
@@ -275,6 +288,7 @@ function App() {
         alert={alert}
         setActiveTab={setActiveTab}
         handleAlertMessage={handleAlertMessage}
+        saveDetailsToLocalStorage={saveDetailsToLocalStorage}
         /> : ''}
 
       {signUp ? 

@@ -139,6 +139,7 @@ function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow,
                         <Comments
                         token={token}
                         id={id}
+                        userData={userData}
                         handleCommentsLength={handleCommentsLength}
                         handleAlertMessage={handleAlertMessage}
                         showLoginWindow={showLoginWindow}

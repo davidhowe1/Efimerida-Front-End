@@ -157,13 +157,14 @@
     section.home-screen {
       display: flex;
       flex-direction: column;
+      justify-content: flex-start;
       width: 100%;
       box-sizing: border-box;
       padding: 0px;
+      margin: 0px;
     }
 
     section.home-screen .image-container {
-      height: 50%;
       width: 100%;
       border-radius: 0px;
       border: none;
@@ -183,6 +184,7 @@
       padding: 0px 30px;
       text-align: center;
       border: none;
+      background-color: transparent;
     }
 
     section.home-screen .container h1 {
@@ -341,6 +343,10 @@
       margin: 0px;
       padding: 0px;
     }
+
+    button.new-post {
+      margin: 5px;
+    }
   
     /* New Post Form Mobile */
   
@@ -451,33 +457,40 @@
       margin-left: 0px;
     }
 
+    section.profile-section .details .user-details .user-info {
+      width: unset;
+    }
+
     .update-form-container {
       width: 95vw;
       box-sizing: border-box;
       padding: 15px;
       margin: auto;
     }
+
+    /* Dark Mode */
+
+    body.dark .mobile-menu {
+      background-color: #15151c;
+    }
+  
+    body.dark .mobile-menu h1, body.dark .mobile-menu li  {
+      color: #fafafa;
+    }
+  
+    body.dark .mobile-menu header svg, body.dark .mobile-menu header svg path {
+      color: white;
+    }
+  
+    body.dark .mobile-menu ul {
+      border-top: 1px solid #2b292f;
+    }
+  
+    body.dark button.search svg path, body.dark button.search svg {
+      color: white;
+    }
+  
+    body.dark section.home-screen .container {
+      background-color: transparent;
+    }
   }
-
-  /* Dark Mode */
-
-  body.dark .mobile-menu {
-    background-color: #15151c;
-  }
-
-  body.dark .mobile-menu h1, body.dark .mobile-menu li  {
-    color: #fafafa;
-  }
-
-  body.dark .mobile-menu header svg, body.dark .mobile-menu header svg path {
-    color: white;
-  }
-
-  body.dark .mobile-menu ul {
-    border-top: 1px solid #2b292f;
-  }
-
-  body.dark button.search svg path, body.dark button.search svg {
-    color: white;
-  }
-

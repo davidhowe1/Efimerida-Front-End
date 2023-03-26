@@ -2,7 +2,7 @@ import { React, useState } from 'react'
 import { X } from 'react-bootstrap-icons'
 import { useNavigate } from 'react-router-dom'
 
-function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn, handleAlertMessage }) {
+function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn, handleAlertMessage, saveDetailsToLocalStorage }) {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -28,6 +28,7 @@ function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn, handleAlertMe
         }
       }).then(data => {
         saveDetailsToLocalStorage(data)
+        localStorage.setItem('token', data.token)
         setIsLoggedIn(!!localStorage.getItem('token'))
         handleAlertMessage(`Welcome Back ${data.username}`)
         hideLoginWindow()
@@ -36,11 +37,6 @@ function Login({ hideLoginWindow, showSignUpWindow, setIsLoggedIn, handleAlertMe
         console.error('Error:', err)
       })
     }
-  }
-
-  const saveDetailsToLocalStorage = (data) => {
-    localStorage.setItem('user_data', JSON.stringify(data))
-    localStorage.setItem('token', data.token)
   }
 
   const validateLogin = () => {

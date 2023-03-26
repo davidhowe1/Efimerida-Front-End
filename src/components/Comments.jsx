@@ -1,10 +1,11 @@
 import { React, useEffect, useState, useRef, useLayoutEffect } from 'react'
 
-function Comments({ token, id, handleCommentsLength, handleAlertMessage, showLoginWindow, renderProfileImages }) {
+function Comments({ token, id, handleCommentsLength, 
+    handleAlertMessage, showLoginWindow, renderProfileImages, userData }) {
 
     const [comment, setComment] = useState('')
     const [commentsList, setCommentsList] = useState([])
-    const userImage = localStorage.getItem('user_image')
+    const userImage = userData ? userData.user_image : ''
 
     const renderComments = () => {
         fetch(`http://127.0.0.1:8000/post/comment/${id}`, {
@@ -65,9 +66,8 @@ function Comments({ token, id, handleCommentsLength, handleAlertMessage, showLog
   return (
     <section className='comments'>
         <div className='add-comment'>
-            <img src={userImage ? 
+            <img src={userImage.includes('http://127.0.0.1:8000') ? `${userImage}` : 
                 `http://127.0.0.1:8000/images/${userImage}`
-                : 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
                 } alt="" />
             <textarea 
                 ref={textareaRef}

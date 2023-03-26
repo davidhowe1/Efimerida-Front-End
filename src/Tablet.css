@@ -68,7 +68,9 @@
     section.home-screen {
       display: flex;
       flex-direction: column;
+      min-height: 90vh;
       padding: 0px 2vw;
+      margin: 0px;
     }
   
     section.home-screen .image-container {
@@ -76,22 +78,20 @@
     }
 
     section.home-screen .image-container img {
-      border-right: 1px solid #313131;
-      border-top: 1px solid #313131;
-      border-left: 1px solid #313131;
       border-bottom: none;
       box-sizing: border-box;
       border-radius: 4px 4px 0px 0px;
+      border-top: 1px solid #d9d9d9;
+      border-left: 1px solid #d9d9d9;
+      border-right: 1px solid #d9d9d9;
     }
   
     section.home-screen .container {
       height: 400px;
       padding: 30px;
       text-align: center;
-      border-right: 1px solid #313131;
+      border-left: 1px solid #d9d9d9;
       border-top: none;
-      border-bottom: 1px solid #313131;
-      border-left: 1px solid #313131;
       border-radius: 0px 0px 4px 4px;
     }
 
@@ -351,7 +351,7 @@
     }
 
     section.profile-section .details .user-details .user-info {
-      width: unset;
+      width: 300px;
       font-size: 0.85rem;
     }
   }

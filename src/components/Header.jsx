@@ -1,5 +1,5 @@
 import { React } from 'react'
-import { List, MoonFill, SunFill, PersonCircle } from 'react-bootstrap-icons'
+import { List, MoonFill, SunFill } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
 import MobileMenu from './MobileMenu'
 import NewPostButton from './NewPostButton'
@@ -7,9 +7,10 @@ import Searchbar from './Searchbar'
 
 function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handleLogout, 
   activeTab, handleTabClick, showNewPostForm, setPosts, mobileMenu, showMobileMenu,
-  hideMobileMenu, toggleTheme, theme, loginToken, userData }) {
+  hideMobileMenu, toggleTheme, theme, loginToken, userData, renderProfileImages }) {
 
     const username = userData ? userData.username : ''
+    const userImage = userData ? userData.user_image : ''
 
     const mobileMenuProps = {
       username,
@@ -45,7 +46,8 @@ function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handleLogout,
                   <Link to='/Profile'>
                     <button className='profile'>
                       <p>{username}</p>
-                      <PersonCircle />
+                      <img src={userImage.includes('http://127.0.0.1:8000/images/') ? `${userImage}`
+                        : `http://127.0.0.1:8000/images/${userImage}`} alt="" />
                     </button>
                   </Link>
                 <button onClick={handleLogout} className='login'>Logout</button>

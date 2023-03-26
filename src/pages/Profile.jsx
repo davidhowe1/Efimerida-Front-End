@@ -3,7 +3,7 @@ import { X , Pencil } from 'react-bootstrap-icons'
 import DimBackground from '../components/DimBackground'
 import Posts from '../components/Posts'
 
-function Profile({ loginToken, handleAlertMessage, renderProfileImages, userId }) {
+function Profile({ loginToken, handleAlertMessage, renderProfileImages, userId, fetchUserData }) {
 
     const [userData, setUserData] = useState()
     const [form, setForm] = useState({})
@@ -23,6 +23,7 @@ function Profile({ loginToken, handleAlertMessage, renderProfileImages, userId }
       .then(response => response.json())
       .then(data => {
         setUserData(data)
+        fetchUserData()
         fetchUserPosts(data.username)
       })
       .catch(error => console.log(error))
@@ -181,7 +182,7 @@ function Profile({ loginToken, handleAlertMessage, renderProfileImages, userId }
             </div>
 
             <div className='posts'>
-            <h1>Your Posts</h1>
+            <h1>Your Posts {`(${userPosts.length})`}</h1>
                 <Posts 
                 posts={userPosts}
                 renderProfileImages={renderProfileImages}

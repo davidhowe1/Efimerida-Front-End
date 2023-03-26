@@ -79,7 +79,7 @@ function User({ renderProfileImages, subscribedUsers, unsubscribeFromUser, subsc
         </div>
 
         <div className='posts'>
-            <h1>Posts by {username}</h1>
+            <h1>Posts by {username} {`(${userPosts.length})`}</h1>
                 <Posts 
                 posts={userPosts}
                 renderProfileImages={renderProfileImages}

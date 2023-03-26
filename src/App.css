@@ -34,6 +34,12 @@ header {
   color: white;
 }
 
+header .login-buttons img {
+  height: 25px;
+  width: 25px;
+  border-radius: 999px;
+}
+
 header p {
   font-size: 0.8rem;
   margin: 0px 10px 0px 0px;
@@ -282,7 +288,6 @@ section.home-screen .container {
 section.home-screen .container h1 {
   font-size: 1.8rem;
   align-self: flex-start;
-  margin: 0px 0px 20px;
 }
 
 section.home-screen span {
