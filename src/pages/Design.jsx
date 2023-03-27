@@ -3,34 +3,47 @@ import SortingOptions from '../components/SortingOptions'
 import Posts from '../components/Posts'
 import SortingToggleButton from '../components/SortingToggleButton'
 
-function Design({ showUsers, showContent, setPosts, showListOfUsers, users,
-  posts, sortType, handleSortTypeChange, renderProfileImages, unsubscribeFromUser, 
-  setShowUsers, loginToken }) {
-
-    const fetchPosts = () => {
-      fetch('http://127.0.0.1:8000/post/by_filter/', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ post_tags: ["Design"] })
+function Design({
+  showUsers,
+  showContent,
+  setPosts,
+  showListOfUsers,
+  users,
+  posts,
+  sortType,
+  handleSortTypeChange,
+  renderProfileImages,
+  unsubscribeFromUser,
+  setShowUsers,
+  loginToken,
+}) {
+  
+  const fetchPosts = () => {
+    fetch("http://127.0.0.1:8000/post/by_filter/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ post_tags: ["Design"] }),
+    })
+      .then((response) => {
+        return response.json();
       })
-      .then(response => {return response.json()})
-      .then(data => setPosts(data))
-      .catch(err => console.error(err))
-    }
+      .then((data) => setPosts(data))
+      .catch((err) => console.error(err));
+  };
 
-    useEffect(() => {
-      fetchPosts()
-    }, [])
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
-    const [sortingToggle, setSortingToggle] = useState(false)
-    const toggleSortingOptions = () => setSortingToggle(!sortingToggle)
-    
+  const [sortingToggle, setSortingToggle] = useState(false);
+  const toggleSortingOptions = () => setSortingToggle(!sortingToggle);
+
   return (
     <>
-      <section className='main-content'>
-        <div className='columns'>
-          <div className='left-column'>
-            <header className='blogs'>
+      <section className="main-content">
+        <div className="columns">
+          <div className="left-column">
+            <header className="blogs">
               <h1>Design</h1>
               <SortingToggleButton
                 sortingToggle={sortingToggle}
@@ -38,8 +51,8 @@ function Design({ showUsers, showContent, setPosts, showListOfUsers, users,
               />
             </header>
 
-            <div className='posts-container'>
-              <Posts 
+            <div className="posts-container">
+              <Posts
                 posts={posts}
                 showUsers={showUsers}
                 setShowUsers={setShowUsers}
@@ -47,12 +60,14 @@ function Design({ showUsers, showContent, setPosts, showListOfUsers, users,
                 loginToken={loginToken}
                 renderProfileImages={renderProfileImages}
                 unsubscribeFromUser={unsubscribeFromUser}
-                />
-              </div>
+              />
             </div>
+          </div>
 
-            <div className={sortingToggle ? 'right-column' : 'right-column hidden'}>
-            <SortingOptions 
+          <div
+            className={sortingToggle ? "right-column" : "right-column hidden"}
+          >
+            <SortingOptions
               posts={posts}
               setPosts={setPosts}
               showUsers={showUsers}
@@ -63,10 +78,9 @@ function Design({ showUsers, showContent, setPosts, showListOfUsers, users,
             />
           </div>
         </div>
-
       </section>
     </>
-  )
+  );
 }
 
 export default Design

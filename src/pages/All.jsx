@@ -3,23 +3,36 @@ import SortingOptions from '../components/SortingOptions'
 import Posts from '../components/Posts'
 import SortingToggleButton from '../components/SortingToggleButton'
 
-function All({ options, fetchPosts, showUsers, showContent, setPosts, showListOfUsers,
-   users, posts, sortType, handleSortTypeChange, renderProfileImages, unsubscribeFromUser, 
-   setShowUsers, loginToken }) {
+function All({
+  options,
+  fetchPosts,
+  showUsers,
+  showContent,
+  setPosts,
+  showListOfUsers,
+  users,
+  posts,
+  sortType,
+  handleSortTypeChange,
+  renderProfileImages,
+  unsubscribeFromUser,
+  setShowUsers,
+  loginToken,
+}) {
+  
+  useEffect(() => {
+    fetchPosts(options);
+  }, []);
 
-    useEffect(() => {
-      fetchPosts(options)
-    }, [])
-
-    const [sortingToggle, setSortingToggle] = useState(false)
-    const toggleSortingOptions = () => setSortingToggle(!sortingToggle)
+  const [sortingToggle, setSortingToggle] = useState(false);
+  const toggleSortingOptions = () => setSortingToggle(!sortingToggle);
 
   return (
     <>
-      <section className='main-content'>
-        <div className='columns'>
-          <div className='left-column'>
-            <header className='blogs'>
+      <section className="main-content">
+        <div className="columns">
+          <div className="left-column">
+            <header className="blogs">
               <h1>All Posts</h1>
               <SortingToggleButton
                 sortingToggle={sortingToggle}
@@ -27,8 +40,8 @@ function All({ options, fetchPosts, showUsers, showContent, setPosts, showListOf
               />
             </header>
 
-            <div className='posts-container'>
-              <Posts 
+            <div className="posts-container">
+              <Posts
                 posts={posts}
                 showUsers={showUsers}
                 setShowUsers={setShowUsers}
@@ -36,12 +49,14 @@ function All({ options, fetchPosts, showUsers, showContent, setPosts, showListOf
                 loginToken={loginToken}
                 renderProfileImages={renderProfileImages}
                 unsubscribeFromUser={unsubscribeFromUser}
-                />
-              </div>
+              />
             </div>
+          </div>
 
-          <div className={sortingToggle ? 'right-column' : 'right-column hidden'}>
-            <SortingOptions 
+          <div
+            className={sortingToggle ? "right-column" : "right-column hidden"}
+          >
+            <SortingOptions
               posts={posts}
               setPosts={setPosts}
               showUsers={showUsers}
@@ -52,10 +67,9 @@ function All({ options, fetchPosts, showUsers, showContent, setPosts, showListOf
             />
           </div>
         </div>
-
       </section>
     </>
-  )
+  );
 }
 
 export default All

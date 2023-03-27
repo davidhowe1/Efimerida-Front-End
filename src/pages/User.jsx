@@ -54,27 +54,27 @@ function User({ renderProfileImages, subscribedUsers, unsubscribeFromUser, subsc
             </div>
 
             <div className='user-details'>
-            <label htmlFor="username">Username</label>
-            <h3>{userData.username}
-            <button 
-                onClick={() => {
-                    {subscribedUsers.includes(username)
-                    ? unsubscribeFromUser(id) 
-                    : subscribeToUser(id)}
-                }} 
-                className={subscribedUsers.includes(username)
-                ? 'new-post subscribed'
-                : 'new-post'}>
-                {subscribedUsers.includes(username)
-                ? ''
-                : 'Subscribe'}
-            </button>
-            </h3>
+                <label htmlFor="username">Username</label>
+                <h3>{userData.username}
+                    <button 
+                        onClick={() => {
+                            {subscribedUsers.includes(username)
+                            ? unsubscribeFromUser(id) 
+                            : subscribeToUser(id)}
+                        }} 
+                        className={subscribedUsers.includes(username)
+                        ? 'new-post subscribed'
+                        : 'new-post'}>
+                        {subscribedUsers.includes(username)
+                        ? ''
+                        : 'Subscribe'}
+                    </button>
+                </h3>
 
-            <label htmlFor="email">Bio</label>
-            <p className='user-info'>
-                {userData.user_info ? userData.user_info : 'Nothing yet...'}
-            </p>
+                <label htmlFor="email">Bio</label>
+                <p className='user-info'>
+                    {userData.user_info ? userData.user_info : 'Nothing yet...'}
+                </p>
             </div>
         </div>
 
