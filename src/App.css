@@ -753,7 +753,8 @@ article.post-card .left-side p.text {
 article.post-card .left-side div .author-and-time {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  margin: 20px 0px 20px;
 }
 
 article.post-card .left-side div h1 {
@@ -777,8 +778,8 @@ article.post-card .image-container {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   border-radius: 999px;
   margin: 0px 20px 0px 0px;
 }
@@ -838,21 +839,23 @@ article.user img {
 
 .author-and-time h4 {
   display: flex;
-  margin: 20px 0px 20px;
-  justify-content: center;
+  margin: 5px 0px;
   align-items: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .author-and-time img {
   object-fit: cover;
-  height: 50px;
-  width: 50px;
+  height: 100%;
+  width: 100%;
 }
 
 .author-and-time p {
   font-size: 0.9rem;
-  color: #878787;
-  font-weight: 400;
+  color: #c2c2c2;
+  font-weight: 500;
+  margin: 0px;
 }
 
 button.unsubscribe {
@@ -1438,6 +1441,10 @@ body.dark article.post-card,
 body.dark article.user {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border: 1px solid #2b292f;
+}
+
+body.dark .author-and-time p {
+  color: #5c5c5c;
 }
 
 body.dark article.post-card:hover {

@@ -7,7 +7,7 @@ import Searchbar from './Searchbar'
 
 function header({ showLoginWindow, showSignUpWindow, isLoggedIn, handleLogout, 
   activeTab, handleTabClick, showNewPostForm, setPosts, mobileMenu, showMobileMenu,
-  hideMobileMenu, toggleTheme, theme, loginToken, userData, renderProfileImages }) {
+  hideMobileMenu, toggleTheme, theme, loginToken, userData }) {
 
     const username = userData ? userData.username : ''
     const userImage = userData ? userData.user_image : ''

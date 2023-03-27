@@ -90,19 +90,16 @@ function Profile({ loginToken, handleAlertMessage, renderProfileImages, userId, 
 
     const handleFormDataInput = () => {
       if (updateDetailsform === 'username') {
-
         return <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <input type="text" placeholder='New Username...' onChange={changeUsername}/>
                 <button className='new-post' type="submit">Submit</button>
               </form>
       } else if (updateDetailsform === 'email') {
-
         return <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <input type="text" placeholder='New Email...' onChange={changeUserEmail}/>
                 <button className='new-post' type="submit">Submit</button>
               </form>
       } else {
-
         return <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <textarea type="text" placeholder='New Bio...' onChange={changeProfileBio}/>
                 <button className='new-post' type="submit">Submit</button>

@@ -13,14 +13,14 @@ function Posts({ posts, renderProfileImages }) {
                         <div className='left-side'>
                             <div>
                                 <div className='author-and-time'>
-                                    <h4>
-
                                     <div className='image-container'>
                                         {renderProfileImages(post.post_author.user_image)}
                                     </div>
 
-                                    {post.post_author.username}</h4>
-                                    <p>{post.post_created_date.substring(0, 16).replace(/T/, ', ')}</p>
+                                    <div>
+                                        <h4>{post.post_author.username}</h4>
+                                        <p>{post.post_created_date.substring(0, 16).replace(/T/, ', ')}</p>
+                                    </div>
                                 </div>
                                 
                                 <h1>{post.post_title}</h1>

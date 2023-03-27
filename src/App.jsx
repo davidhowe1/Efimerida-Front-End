@@ -26,16 +26,12 @@ function App() {
   const [login, setLogin] = useState(false)
   const [signUp, setSignUp] = useState(false)
   const token = localStorage.getItem('token')
-  const loginToken = !!localStorage.getItem('token')
+  const loginToken = !!token
   let userData = JSON.parse(localStorage.getItem('user_data'))
   const userId = userData ? userData.id : ''
   const [isLoggedIn, setIsLoggedIn] = useState(loginToken)
 
-  const showLoginWindow = () => {
-    setLogin(true)
-    hideSignUpWindow()
-    hideMobileMenu()
-  }
+  const showLoginWindow = () => {setLogin(true), hideSignUpWindow(), hideMobileMenu()}
   const hideLoginWindow = () => setLogin(false)
 
   const handleLogout = () => {
@@ -54,23 +50,16 @@ function App() {
     localStorage.removeItem('token')
   }
 
-  const showSignUpWindow = () => {
-    setSignUp(true)
-    hideLoginWindow()
-    hideMobileMenu()
-  }
+  const showSignUpWindow = () => { setSignUp(true), hideLoginWindow(), hideMobileMenu() }
   const hideSignUpWindow = () => setSignUp(false)
-  const hideLoginOrSignUpWindow = () => {setLogin(false);setSignUp(false)}
+  const hideLoginOrSignUpWindow = () => { setLogin(false), setSignUp(false) }
 
   const [mobileMenu, setMobileMenu] = useState(false)
   const showMobileMenu = () => setMobileMenu(true)
   const hideMobileMenu = () => setMobileMenu(false)
 
   const [sortType, setSortType] = useState('latest')
-  const handleSortTypeChange = (type) => {
-    setSortType(type)
-    scrollTo(0, 0)
-  }
+  const handleSortTypeChange = (type) => { setSortType(type), scrollTo(0, 0) }
 
   const [alert, setAlert] = useState('')
   const [alertIsActive, setAlertIsActive] = useState(false)
@@ -89,13 +78,10 @@ function App() {
     }, 5000)
   }
 
-
   let [posts, setPosts] = useState([])
   let options = {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      headers: { 'Content-Type': 'application/json' }
   }
 
   const fetchUserData = () => {
@@ -151,8 +137,7 @@ function App() {
     })
     .then(response => {
       if ( response.ok ) {
-        handleAlertMessage('Subscription Added')
-        fetchUserList()
+        handleAlertMessage('Subscription Added'), fetchUserList()
       } else {
         handleAlertMessage('Subscription already added')
       }
@@ -171,9 +156,8 @@ function App() {
     })
     .then(response => {
       if (response.ok) {
-      handleAlertMessage('Subscription Removed')
-      fetchUserList()
-    }
+      handleAlertMessage('Subscription Removed'), fetchUserList()
+      }
     })
     .catch(error => console.log(error))
   }
@@ -192,14 +176,10 @@ function App() {
   } 
 
   const [tags, setTags] = useState([])
-
   const [activeTab, setActiveTab] = useState('All')
   const currentPageURL = window.location.pathname;
 
-  const handleTabChange = () => {
-    setActiveTab(currentPageURL)
-    setMobileMenu(false)
-  }
+  const handleTabChange = () => { setActiveTab(currentPageURL), setMobileMenu(false) }
 
   useEffect(() => {
     handleTabChange()
@@ -232,6 +212,7 @@ function App() {
   }, [theme])
 
   const pageProperties = {
+    token,
     userData,
     userId,
     options,

@@ -6,17 +6,16 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
 function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow, 
-    renderProfileImages, subscribeToUser, subscribedUsers, unsubscribeFromUser, userData, userId }) {
+    renderProfileImages, subscribeToUser, subscribedUsers, unsubscribeFromUser, 
+    userData, userId, token }) {
     
     const [content, setContent] = useState([])
     const [userSubscribeId, setUserSubscribeId] = useState()
     const { id } = useParams();
+    const username = userData ? userData.username : ''
     const [commentsLength, setCommentsLength] = useState(0)
     const handleCommentsLength = (length) => setCommentsLength(length)
-    const username = userData ? userData.username : ''
     const navigateToAllPosts = useNavigate()
-
-    const token = localStorage.getItem('token')
 
     const commentsRef = useRef()
     const scrollToComments = () => {
@@ -67,18 +66,18 @@ function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow,
     const deletePost = (e) => {
         e.preventDefault()
         if (confirm('Are you sure you want to delete this post?')) {
-            fetch(`http://127.0.0.1:8000/post/detail/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Token ${token}`
-                }
-                })
-                .then(response => {
-                    response.json()
-                    navigateToAllPosts('/All')
-                })
-                .then(data => console.log(data))
-                .catch(error => console.log('Error: ', error))
+        fetch(`http://127.0.0.1:8000/post/detail/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Token ${token}`
+            }
+            })
+            .then(response => {
+                response.json()
+                navigateToAllPosts('/All')
+            })
+            .then(data => console.log(data))
+            .catch(error => console.log('Error: ', error))
         }
     }
         
@@ -164,7 +163,7 @@ function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow,
                                 
                                 <p className='date-and-time'>{article.post_created_date.substring(0, 16).replace(/T/, ', ')}</p>
                                 
-                                <button 
+                                {username !== article.post_author.username ? <button 
                                     onClick={() => {
                                         {subscribedUsers.includes(article.post_author.username)
                                         ? unsubscribeFromUser(userSubscribeId) 
@@ -176,7 +175,7 @@ function Article({ fetchTagData, tags, handleAlertMessage, showLoginWindow,
                                     {subscribedUsers.includes(article.post_author.username)
                                     ? ''
                                     : 'Subscribe'}
-                                </button>
+                                </button> : ''}
                             </div>
 
                             <span>
