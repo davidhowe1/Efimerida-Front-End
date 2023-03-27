@@ -16,10 +16,10 @@ function Subscriptions({ showUsers, showContent, setPosts, showListOfUsers,
     }, [])
 
     const handleUnsubscribe = (e) => {
-        const userId = parseInt(e.currentTarget.parentElement.id)
+        const user = parseInt(e.currentTarget.parentElement.parentElement.id)
 
-        if (userId) {
-            unsubscribeFromUser(userId)
+        if (user) {
+            unsubscribeFromUser(user)
         } else {
             handleAlertMessage('Error: There was an problem while unsubscribing you')
         }
