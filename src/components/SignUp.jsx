@@ -9,31 +9,31 @@ function SignUp({ hideSignUpWindow, showLoginWindow, handleAlertMessage }) {
   const [verifyPassword, setVerifyPassword] = useState('');
   const [agreeToTerms, setAgreeToTerms] = useState(false)
   const [signupComplete, setSignupComplete] = useState(false)
-  
-  const handleSignUp = (event) => {
-    event.preventDefault();
+
+  const handleSignUp = async (event) => {
+    event.preventDefault()
     if (validateSignUp()) {
-      fetch('http://127.0.0.1:8000/user/registration/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-          email: email,
+      try {
+        const response = await fetch('http://127.0.0.1:8000/user/registration/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: username,
+            password: password,
+            email: email,
+          })
         })
-      }).then(response => {
+
         if (response.ok) {
           setSignupComplete(true)
         } else {
           handleAlertMessage('Error: Registration Failed. Please try again.')
         }
-      }).catch(err => {
-        console.error('Error: ', err)
-      })
+      } catch (error) {
+        console.error(error)
       }
     }
+  }
 
   const validateSignUp = () => {
     if (!username) {

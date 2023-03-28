@@ -19,7 +19,7 @@ function Searchbar({ setPosts, hideMobileMenu, mobileMenu }) {
     try {
       const response = await fetch(`http://127.0.0.1:8000/post/by_filter/?t=${Date.now()}`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ post_title: searchQuery })
       })
   

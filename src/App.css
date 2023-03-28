@@ -39,8 +39,8 @@ header .login-buttons .user-picture {
   justify-content: center;
   align-items: center;
   border-radius: 999px;
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
   overflow: hidden;
 }
 
@@ -862,7 +862,7 @@ article.user img {
 
 .author-and-time p {
   font-size: 0.9rem;
-  color: #c2c2c2;
+  color: #878787;
   font-weight: 500;
   margin: 0px;
 }
@@ -1271,6 +1271,10 @@ section.comments ul li .user-details p {
 section.comments .add-comment {
   display: flex;
   align-items: flex-start;
+}
+
+section.comments .add-comment img {
+  object-fit: cover;
 }
 
 section.comments img {

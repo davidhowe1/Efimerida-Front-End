@@ -21,6 +21,7 @@ function header({
   theme,
   loginToken,
   userData,
+  getImageSrc
 }) {
 	
   const username = userData ? userData.username : "";
@@ -61,29 +62,28 @@ function header({
                   <button className="profile">
                     <p>{username}</p>
 
-					<div className='user-picture'>
-						<img src={
-							userImage.includes("http://127.0.0.1:8000/images/")
-							? `${userImage}`
-							: `http://127.0.0.1:8000/images/${userImage}`
-						}
-						alt="Link to user profile"
-						/>
-					</div>
+                    <div className='user-picture'>
+                      <img src={getImageSrc(userImage)}
+                      alt="Link to user profile"
+                      />
+                    </div>
                   </button>
                 </Link>
+
                 <button onClick={handleLogout} className="login">
                   Logout
                 </button>
               </>
             ) : (
               <>
-                <button onClick={toggleTheme} className="theme">
+                <button onClick={toggleTheme} className="theme" alt="Toggle Theme">
                   {theme === "light" ? <MoonFill /> : <SunFill />}
                 </button>
+
                 <button onClick={showLoginWindow} className="login">
                   Login
                 </button>
+
                 <button onClick={showSignUpWindow} className="sign-up">
                   Sign Up
                 </button>
@@ -94,6 +94,7 @@ function header({
           <div onClick={showMobileMenu} className="mobile-menu-toggle">
             <List />
           </div>
+          
         </header>
       </div>
 
@@ -106,25 +107,25 @@ function header({
           <div>
             <ul>
               <Link to="/All">
-                <li className={activeTab === "/All" ? "active" : ""}>
+                <li className={activeTab === "/All" ? "active" : " "}>
                   All Posts
                 </li>
               </Link>
 
               <Link to="/Development">
-                <li className={activeTab === "/Development" ? "active" : ""}>
+                <li className={activeTab === "/Development" ? "active" : " "}>
                   Development
                 </li>
               </Link>
 
               <Link to="/Admin">
-                <li className={activeTab === "/Admin" ? "active" : ""}>
+                <li className={activeTab === "/Admin" ? "active" : " "}>
                   Admin
                 </li>
               </Link>
 
               <Link to="/Design">
-                <li className={activeTab === "/Design" ? "active" : ""}>
+                <li className={activeTab === "/Design" ? "active" : " "}>
                   Design
                 </li>
               </Link>

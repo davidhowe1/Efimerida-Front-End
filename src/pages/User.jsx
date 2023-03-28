@@ -9,40 +9,43 @@ function User({ renderProfileImages, subscribedUsers, unsubscribeFromUser, subsc
     const [userPosts, setUserPosts] = useState([])
     const { id } = useParams()
 
-    const getUserData = () => {
-        fetch(`http://127.0.0.1:8000/user/detail/${id}/`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }})
-        .then(response => response.json())
-        .then(data => {
+    const getUserData = async () => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/user/detail/${id}/`, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            const data = await response.json()
             setUserData(data)
             setUsername(data.username)
             fetchUserPosts(data.username)
-        })
-        .catch(error => console.log(error))
-      }
-
-      const fetchUserPosts = (username) => {
-        fetch('http://127.0.0.1:8000/post/by_filter/', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                post_author: {
-                    username: `${username}`,
-                }
-            })
-            })
-            .then(response => {return response.json()})
-            .then(data => setUserPosts(data))
-            .catch(err => console.error(err))
+        } catch (error) {
+            console.error(error)
         }
+    }
 
-      useEffect(() => {
-        getUserData()
-        fetchUserPosts()
-      }, [])
+    const fetchUserPosts = async (username) => {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/post/by_filter/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    post_author: {
+                        username: `${username}`,
+                    }
+                })
+            })
+            const data = await response.json()
+            setUserPosts(data)
+        } catch (error) {   
+            console.error(error)
+        }
+    }
+
+    useEffect(() => {
+    getUserData()
+    fetchUserPosts()
+    }, [])
 
   return (
     <section className='profile-section'>

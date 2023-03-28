@@ -45,7 +45,7 @@ function NewPost({ handleAlertMessage, loginToken }) {
 
   const token = localStorage.getItem('token')
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     const formData = new FormData()
     formData.append('post_title', title)
@@ -53,36 +53,27 @@ function NewPost({ handleAlertMessage, loginToken }) {
     formData.append('post_image', image)
     formData.append('post_tags', parseInt(tags))
 
-    fetch('http://127.0.0.1:8000/post/list/', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Token ${token}`,
-      },
-      body: formData
-    })
-    .then(response => {
-      if (response.ok) {
-          return response.json()
-      } else {
-        handleAlertMessage('Error: There was a problem creating your post. Try again later.')
-        return response.json()
-      }
-    })
-    .then(data => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/post/list/', {
+        method: 'POST',
+        headers: { 'Authorization': `Token ${token}` },
+        body: formData
+      })
+
+      const data = await response.json()
       const requiredProps = ['post_title', 'post_text', 'post_image', 'post_tags']
       const isAllPropsPresent = requiredProps.every(prop => data.hasOwnProperty(prop))
-        
+
       if (isAllPropsPresent) {
         handleAlertMessage(`Your post '${data.post_title}' has been created!`)
         navigateToAllPosts('/All')
       } else {
         handleAlertMessage('Error: There was a problem creating your post. Please make sure all fields are filled before submitting.')
       }
-    })
-    .catch(error => {
+    } catch (error) {
       handleAlertMessage('Error: There was a problem creating your post. Try again later.')
-      console.log('Error creating post: ', error)
-    })
+      console.error(error)
+    }
   }
 
   const cancelPost = (e) => {

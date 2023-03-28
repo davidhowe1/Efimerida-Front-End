@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import './App.css'
 import './Tablet.css'
 import './Mobile.css'
@@ -50,6 +50,8 @@ function App() {
     localStorage.removeItem('token')
   }
 
+
+
   const showSignUpWindow = () => { setSignUp(true), hideLoginWindow(), hideMobileMenu() }
   const hideSignUpWindow = () => setSignUp(false)
   const hideLoginOrSignUpWindow = () => { setLogin(false), setSignUp(false) }
@@ -78,101 +80,124 @@ function App() {
     }, 5000)
   }
 
+
+
   let [posts, setPosts] = useState([])
+
   let options = {
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Token ${token}`
+      },
   }
 
-  const fetchUserData = () => {
-    fetch(`http://127.0.0.1:8000/user/detail/${userId}`, options)
-    .then(response => response.json())
-    .then(data => saveDetailsToLocalStorage(data))
-    .catch(err => console.error(err))
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/user/detail/${userId}`, options)
+      const data = await response.json()
+      saveDetailsToLocalStorage(data)
+    } catch (error) {
+      console.error(error)
+    }
   }
-
-  const fetchPosts = () => {
-    fetch('http://127.0.0.1:8000/post/list/?format=json', options)
-      .then(response => response.json())
-      .then(data => setPosts(data.results))
-      .catch(err => console.error(err))
+  
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/post/list/?format=json', options)
+      const data = await response.json()
+      setPosts(data.results)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const [users, setUsers] = useState([])
-  const subscribedUsers = users.map(user => user.username)
 
-  const fetchUserList = () => {
+  const subscribedUsers = useMemo(() => {
+    return users.map(user => user.username);
+  }, [users])
+
+  const fetchUserList = async () => {
     if (loginToken) {
-      fetch('http://127.0.0.1:8000/user/get_subscribe/', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Token ${token}`,
+      try {
+        const response = await fetch('http://127.0.0.1:8000/user/get_subscribe/', options)
+        const data = await response.json() 
+        setUsers(data.results)
+      } catch (error) {
+        console.error(error)
       }
-    })
-      .then(response => response.json())
-      .then(data => setUsers(data.results))
-      .catch(err => console.error(err))
-    } else {
-      return
     }
-  }  
+  }
 
-  const renderProfileImages = (imageURL) => {
+
+  const renderProfileImages = useMemo(() => (imageURL) => {
     if (!imageURL) {
-        return <img src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png' alt='Authors Profile Picture'/>
+      return <img src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png' alt='Authors Profile Picture'/>
     } else if (imageURL.includes('http://127.0.0.1:8000')) {
-        return <img src={imageURL} alt='Authors Profile Picture'/>
+      return <img src={imageURL} alt='Authors Profile Picture'/>
     } else {
-        return <img src={`http://127.0.0.1:8000/${imageURL}`} alt='Authors Profile Picture'/>
+      return <img src={`http://127.0.0.1:8000/${imageURL}`} alt='Authors Profile Picture'/>
+    }
+  }, []);
+
+
+  const subscribeToUser = async (userId) => {
+    if (loginToken) {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/user/subscribe/${userId}/`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Token ${token}`,
+          }
+        })
+        if (response.ok) {
+          handleAlertMessage('Subscription Added')
+          await fetchUserList()
+        } else {
+          handleAlertMessage('Subscription already added')
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    } else {
+      showLoginWindow()
     }
   }
 
-  const subscribeToUser = (userId) => {
-    if (loginToken) {
-    fetch(`http://127.0.0.1:8000/user/subscribe/${userId}/`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Token ${token}`,
-      }
-    })
-    .then(response => {
-      if ( response.ok ) {
-        handleAlertMessage('Subscription Added'), fetchUserList()
-      } else {
-        handleAlertMessage('Subscription already added')
-      }
-    })
-    .catch(error => console.log(error))
-  } else { showLoginWindow() }
-  }
-
-
-  const unsubscribeFromUser = (userId) => {
-    fetch(`http://127.0.0.1:8000/user/subscribe/${userId}/`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Token ${token}`,
-      }
-    })
-    .then(response => {
+  const unsubscribeFromUser = async (userId) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/user/subscribe/${userId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Token ${token}`,
+        }
+      })
       if (response.ok) {
-      handleAlertMessage('Subscription Removed'), fetchUserList()
+        handleAlertMessage('Subscription Removed')
+        await fetchUserList()
       }
-    })
-    .catch(error => console.log(error))
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   useEffect(() => {
+    fetchPosts()
     fetchUserList()
     setActiveTab(localStorage.getItem('content-tab'))
   }, [])
 
 
-  const fetchTagData = () => {
-    fetch('http://127.0.0.1:8000/post/tag_list/', options)
-    .then(response => response.json())
-    .then(data => setTags(data.results))
-    .catch(err => console.error(err))
+
+  const fetchTagData = async () => {
+    try {
+      const response = await fetch('http://127.0.0.1:8000/post/tag_list/', options)
+      const data = await response.json()
+      setTags(data.results)
+    } catch (error) {
+      console.error(error)
+    }
   } 
 
   const [tags, setTags] = useState([])
@@ -180,10 +205,25 @@ function App() {
   const currentPageURL = window.location.pathname;
 
   const handleTabChange = () => { setActiveTab(currentPageURL), setMobileMenu(false) }
-
+  
   useEffect(() => {
     handleTabChange()
   }, [currentPageURL])
+
+
+  const getImageSrc = (userImage) => {
+    if (userImage ) {
+      if (userImage.includes('http://127.0.0.1:8000')) {
+        return userImage;
+      } else if (!userImage) {
+        return 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+      } else {
+        return `http://127.0.0.1:8000/images/${userImage}`;
+      }
+    } else {
+      return 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
+    }
+  };
 
 
   const [theme, setTheme] = useState('light')
@@ -211,6 +251,7 @@ function App() {
     setThemeOnRender()
   }, [theme])
 
+  
   const pageProperties = {
     token,
     userData,
@@ -219,6 +260,7 @@ function App() {
     fetchUserData,
     fetchPosts,
     fetchUserList,
+    handleTabChange,
     posts,
     setPosts,
     users,
@@ -228,6 +270,7 @@ function App() {
     handleSortTypeChange,
     tags,
     fetchTagData,
+    getImageSrc,
     showLoginWindow,
     showSignUpWindow,
     login,
@@ -252,12 +295,12 @@ function App() {
     showMobileMenu,
     hideMobileMenu,
     toggleTheme,
+    getImageSrc,
     theme,
     loginToken,
     renderProfileImages
   };
   
-
   return (
     <>
       {login ? 

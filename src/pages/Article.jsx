@@ -17,12 +17,13 @@ function Article({
   userData,
   userId,
   token,
+  getImageSrc
 }) {
     
   const [content, setContent] = useState([]);
   const [userSubscribeId, setUserSubscribeId] = useState();
   const { id } = useParams();
-  const username = userData ? userData.username : "";
+  const username = userData ? userData.username : '';
   const [commentsLength, setCommentsLength] = useState(0);
   const handleCommentsLength = (length) => setCommentsLength(length);
   const navigateToAllPosts = useNavigate();
@@ -30,66 +31,66 @@ function Article({
   const commentsRef = useRef();
   const scrollToComments = () => {
     commentsRef.current.scrollIntoView({
-      behavior: "auto",
-      block: "center",
-      inline: "center",
+      behavior: 'auto',
+      block: 'center',
+      inline: 'center',
     });
   };
   const navigateBackToTop = () => window.scrollTo(0, 0);
 
-  const renderPostContent = () => {
-    fetch(`http://127.0.0.1:8000/post/detail/${id}/`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setContent([data]);
-        setUserSubscribeId(data.post_author.id);
+  const renderPostContent = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/post/detail/${id}/`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
       })
-      .catch((error) => console.log("Error: ", error));
-  };
+      const data = await response.json()
+      await setContent([data])
+      await setUserSubscribeId(data.post_author.id)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-  const likeCurrentPost = () => {
+  const likeCurrentPost = async () => {
     if (token) {
-      fetch(`http://127.0.0.1:8000/post/like/${id}/`, {
-        method: "POST",
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-        .then((response) => {
-          if (response.ok) {
-            renderPostContent();
-            handleAlertMessage("You liked this post.");
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/post/like/${id}/`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Token ${token}`,
           }
-          return response.json();
         })
-        .catch((error) => console.log("Error: ", error));
-    } else {
-      showLoginWindow();
+        if (response.ok) {
+          await renderPostContent()
+          await handleAlertMessage('You liked this post.')
+        }
+    } catch (error) {
+      console.error(error)
     }
-  };
+  } else { showLoginWindow() }
+}
 
-  const deletePost = (e) => {
-    e.preventDefault();
-    if (confirm("Are you sure you want to delete this post?")) {
-      fetch(`http://127.0.0.1:8000/post/detail/${id}`, {
-        method: "DELETE",
+const deletePost = async (event) => {
+  event.preventDefault()
+  if (confirm('Are you sure you want to delete this post?')) {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/post/detail/${id}`, {
+        method: 'DELETE',
         headers: {
           Authorization: `Token ${token}`,
         },
       })
-        .then((response) => {
-          response.json();
-          navigateToAllPosts("/All");
-        })
-        .then((data) => console.log(data))
-        .catch((error) => console.log("Error: ", error));
+      if (response.ok) {
+        await navigateToAllPosts('/All')
+      } else {
+        console.log('Error: ', response.statusText)
+        }
+      } catch (error) {
+        console.log('Error: ', error)
+      }
     }
-  };
+  }
 
   useEffect(() => {
     renderPostContent();
@@ -114,8 +115,8 @@ function Article({
     <>
       {content
         ? content.map((article) => (
-            <article key={article.id} className="post">
-              <div className="close-button">
+            <article key={article.id} className='post'>
+              <div className='close-button'>
                 <h1>{article.post_title}</h1>
 
                 <span
@@ -125,63 +126,65 @@ function Article({
                 >
                   <ChevronLeft
                     style={{
-                      height: "20px",
-                      width: "20px",
-                      padding: "0px 5px",
+                      height: '20px',
+                      width: '20px',
+                      padding: '0px 5px',
                     }}
                   />
                   <p>{`Back`}</p>
                 </span>
               </div>
 
-              <div className="article-container">
-                <div className="article-body">
+              <div className='article-container'>
+                <div className='article-body'>
                   <img
                     src={
-                      article.post_image.includes("http://127.0.0.1:8000")
+                      article.post_image.includes('http://127.0.0.1:8000')
                         ? article.post_image
                         : `http://127.0.0.1:8000${article.post_image}`
                     }
-                    alt=""
+                    alt=''
                   />
 
                   <p
                     dangerouslySetInnerHTML={{ __html: article.post_text }}
                   ></p>
 
-                  <div className="tags">
+                  <div className='tags'>
                     <h3>Tags</h3>
                     {matchingTags
                       ? matchingTags.map((tag, index) => (
-                          <p key={index} className="tag">
+                          <p key={index} className='tag'>
                             {tag}
                           </p>
                         ))
-                      : ""}
+                      : ''}
                   </div>
 
-                  <h3 ref={commentsRef} className="comments-title">
+                  <h3 ref={commentsRef} className='comments-title'>
                     Comments {`(${commentsLength})`}
                   </h3>
 
                   <Comments
                     token={token}
                     id={id}
+                    userId={userId}
                     userData={userData}
                     handleCommentsLength={handleCommentsLength}
                     handleAlertMessage={handleAlertMessage}
                     showLoginWindow={showLoginWindow}
                     renderProfileImages={renderProfileImages}
+                    getImageSrc={getImageSrc}
                   />
 
                   <span>
-                    <button onClick={navigateBackToTop} className="back-to-top">
+                    <button onClick={navigateBackToTop} className='back-to-top'>
                       Back to Top
                     </button>
                   </span>
                 </div>
 
-                <div className="author-details">
+                <div className='author-details'>
                   <Link
                     to={
                       userId === userSubscribeId
@@ -189,19 +192,19 @@ function Article({
                         : `/User/${userSubscribeId}`
                     }
                   >
-                    <div className="image-container">
+                    <div className='image-container'>
                       {renderProfileImages(article.post_author.user_image)}
                     </div>
                   </Link>
 
                   <div>
-                    <div className="author">
+                    <div className='author'>
                       <h3>{article.post_author.username}</h3>
 
-                      <p className="date-and-time">
+                      <p className='date-and-time'>
                         {article.post_created_date
                           .substring(0, 16)
-                          .replace(/T/, ", ")}
+                          .replace(/T/, ', ')}
                       </p>
 
                       {username !== article.post_author.username ? (
@@ -219,61 +222,53 @@ function Article({
                             subscribedUsers.includes(
                               article.post_author.username
                             )
-                              ? "new-post subscribed"
-                              : "new-post"
+                              ? 'new-post subscribed'
+                              : 'new-post'
                           }
                         >
                           {subscribedUsers.includes(
                             article.post_author.username
                           )
-                            ? ""
-                            : "Subscribe"}
+                            ? ''
+                            : 'Subscribe'}
                         </button>
                       ) : (
-                        ""
+                        ''
                       )}
                     </div>
 
                     <span>
-                      <p
-                        title={`${article.post_views} have viewed this post so far`}
-                      >
-                        <Eye style={{ margin: "0px 6px" }} />
+                      <p title={`${article.post_views} have viewed this post so far`}>
+                        <Eye style={{ margin: '0px 6px' }} />
                         {article.post_views}
                       </p>
 
-                      <p
-                        onClick={likeCurrentPost}
-                        title="Click to Like this post"
-                      >
-                        <Heart style={{ margin: "0px 6px" }} />{" "}
+                      <p onClick={likeCurrentPost} title='Click to Like this post'>
+                        <Heart style={{ margin: '0px 6px' }} />{' '}
                         {article.post_likes.length}
                       </p>
 
-                      <p
-                        onClick={scrollToComments}
-                        title="Click to see comments"
-                      >
-                        <Chat style={{ margin: "0px 6px" }} />
+                      <p onClick={scrollToComments} title='Click to see comments'>
+                        <Chat style={{ margin: '0px 6px' }} />
                         {commentsLength}
                       </p>
                     </span>
 
                     {username === article.post_author.username ? (
-                      <div className="post-options">
-                        <button onClick={deletePost} className="delete">
+                      <div className='post-options'>
+                        <button onClick={deletePost} className='delete'>
                           Delete Post
                         </button>
                       </div>
                     ) : (
-                      ""
+                      ''
                     )}
                   </div>
                 </div>
               </div>
             </article>
           ))
-        : " "}
+        : ''}
     </>
   );
 }
