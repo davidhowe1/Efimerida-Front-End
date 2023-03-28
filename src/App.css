@@ -75,9 +75,9 @@ header p {
   z-index: 2;
 }
 
-header h2 {
+header h3 {
   color: white;
-  margin: 5px 0px;
+  margin: 12px 0px;
 }
 
 .login-buttons {
@@ -417,18 +417,22 @@ button.profile:hover svg {
 }
 
 section.profile-section {
+  display: flex;
+  flex-direction: row;
   margin: 50px auto;
   width: 1100px;
 }
 
 section.profile-section .details {
-  display: grid;
-  grid-template-columns: 35% 65%;
-  margin: 0px auto;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 0px 0px 60px;
-  width: fit-content;
+  justify-content: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 10vh;
+  height: fit-content;
+  margin: 0px 50px 0px 0px;
 }
 
 section.profile-section .details .user-details label, section.profile-section .details .user-details label button {
@@ -447,15 +451,11 @@ section.profile-section .details .user-details h1 {
   border-bottom: 1px solid #d9d9d9;
 }
 
-section.profile-section .posts {
-  border-top: 1px solid #d9d9d9;
-}
-
 section.profile-section .details .user-info {
   padding: 10px;
   border-radius: 4px;
   border: 1px solid #d9d9d9;
-  width: 400px;
+  width: 270px;
 }
 
 section.profile-section .details label {
@@ -465,16 +465,11 @@ section.profile-section .details label {
 
 section.profile-section .image-container {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   border-radius: 999px;
   overflow: hidden;
   border: 1px solid transparent;
-  margin: 0px 30px 0px 0px;
-}
-
-section.profile-section .details .user-details {
-  margin: 0px 0px 0px 30px;
 }
 
 section.profile-section .image-container img {
@@ -485,6 +480,7 @@ section.profile-section .image-container img {
 
 section.profile-section .image-container:hover {
   border: 1px solid #8e94ff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .update-form-container {
@@ -810,9 +806,9 @@ article.user {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1px 15px;
+  padding: 10px 20px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 8px 0px;
-  border: 1px solid #d1d1d1;
+  border: 1px solid #e8e8e8;
   border-radius: 4px;
   margin: 0px 0px 20px;
   transition: 0.1s;
@@ -826,7 +822,6 @@ article.user {
 article.user:hover {
   border: 1px solid #666eff;
   transition: 0.1s;
-  cursor: pointer;
 }
 
 article.user .image-container {
@@ -837,7 +832,7 @@ article.user .image-container {
   height: 50px;
   width: 50px;
   border-radius: 999px;
-  margin: 0px 20px 0px 0px;
+  margin: 0px 15px 0px 0px;
 }
 
 article.user img {
@@ -1275,6 +1270,7 @@ section.comments .add-comment {
 
 section.comments .add-comment img {
   object-fit: cover;
+  margin: 0px 20px 0px 0px;
 }
 
 section.comments img {

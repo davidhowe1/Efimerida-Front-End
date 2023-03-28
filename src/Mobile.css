@@ -203,7 +203,25 @@
 
     /* Mobile Profile Styles */
 
+    section.profile-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    section.profile-section .details {
+      position: unset;
+      margin: 0px;
+    }
+
+    section.profile-section article.post-card {
+      width: 100%;
+    }
+
     section.profile-section .details .image-container {
+      margin: 0px;
+    }
+
+    section.profile-section button.new-post {
       margin: 0px;
     }
 

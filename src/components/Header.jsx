@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { React } from 'react'
 import { List, MoonFill, SunFill } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
@@ -49,7 +48,7 @@ function header({
       <div className='header-wrapper'>
         <header>
           <Link to={loginToken ? '/All' : ''}>
-            <h2>Efimerida</h2>
+            <h3>Efimerida</h3>
           </Link>
 
           <div className='login-buttons'>

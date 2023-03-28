@@ -185,7 +185,7 @@ function Profile({
           <>
             <div className="details">
               <div className="image-container">
-                <label htmlFor="image">Select file</label>
+                <label htmlFor="image"> </label>
                 <input
                   className="hidden"
                   type="file"

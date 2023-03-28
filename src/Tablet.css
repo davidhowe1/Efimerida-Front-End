@@ -40,14 +40,26 @@
     grid-template-columns: 50% 50%;
   }
 
+  section.profile-section {
+    width: unset;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  section.profile-section article.post-card {
+    display: flex;
+    flex-direction: column-reverse;
+    height: fit-content;
+    width: 500px;
+  }
+
+  section.profile-section article.post-card .right-side {
+    height: 380px;
+  }
+
   footer {
     width: 100%;
     padding: 0px 4vw;
-  }
-
-  section.profile-section {
-    width: unset;
-    box-sizing: border-box;
   }
 }
   
@@ -332,14 +344,11 @@
     }
 
     section.profile-section {
-      align-items: center;
-      width: unset;
-      margin: 5vh 4vw;
       box-sizing: border-box;
     }
 
     section.profile-section .details {
-      width: 100%;
+      top: 7vh;
     }
 
     section.profile-section .image-container {
@@ -351,7 +360,22 @@
     }
 
     section.profile-section .details .user-details .user-info {
-      width: 300px;
+      width: 33vw;
       font-size: 0.85rem;
+    }
+
+    section.profile-section {
+      margin: 3vh 4vw;
+    }
+  
+    section.profile-section article.post-card {
+      display: flex;
+      flex-direction: column-reverse;
+      height: fit-content;
+      width: 44vw;
+    }
+  
+    section.profile-section article.post-card .right-side {
+      height: 280px;
     }
   }
