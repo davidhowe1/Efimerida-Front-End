@@ -45,6 +45,7 @@
     .mobile-menu {
       display: flex;
       position: fixed;
+      overflow-y: scroll;
       z-index: 5;
       height: 100%;
       width: 100vw;
@@ -110,7 +111,7 @@
       display: flex;
       align-items: center;
       list-style: none;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       font-weight: 600;
       margin: 0.6em 0px;
       color: #242424;
@@ -352,6 +353,13 @@
     button.new-post {
       margin: 5px;
     }
+
+    section.comments ul li .user-details h4 {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+      max-width: 150px;
+    }
   
     /* New Post Form Mobile */
   
@@ -471,6 +479,37 @@
       box-sizing: border-box;
       padding: 15px;
       margin: auto;
+    }
+
+    /* Subscriptions */
+
+    article.user {
+      padding: 6px;
+    }
+
+    article.user .image-container {
+      margin: 0px 10px 0px 0px;
+    }
+
+    article.user .image-container img {
+      height: 35px;
+      width: 35px;
+      border-radius: 999px;
+    }
+
+    article.user button.unsubscribe {
+      margin: 0px;
+    }
+
+    article.user p {
+      font-size: 0.8rem;
+      margin: 0px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    article.user .button-container {
+      margin: 0px 10px 0px 0px;
     }
 
     /* Dark Mode */

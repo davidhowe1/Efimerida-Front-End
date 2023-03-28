@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { React } from 'react'
 import { List, MoonFill, SunFill } from 'react-bootstrap-icons'
 import { Link } from 'react-router-dom'
@@ -11,7 +12,7 @@ function header({
   isLoggedIn,
   handleLogout,
   activeTab,
-  handleTabClick,
+  handleTabChange,
   showNewPostForm,
   setPosts,
   mobileMenu,
@@ -24,12 +25,12 @@ function header({
   getImageSrc
 }) {
 	
-  const username = userData ? userData.username : "";
-  const userImage = userData ? userData.user_image : "";
-
+  const username = userData ? userData.username : ''
+  const userImage = userData ? userData.user_image : ''
+  
   const mobileMenuProps = {
     username,
-    handleTabClick,
+    handleTabChange,
     activeTab,
     setPosts,
     showNewPostForm,
@@ -45,94 +46,94 @@ function header({
 
   return (
     <>
-      <div className="header-wrapper">
+      <div className='header-wrapper'>
         <header>
-          <Link to={loginToken ? "/All" : ""}>
+          <Link to={loginToken ? '/All' : ''}>
             <h2>Efimerida</h2>
           </Link>
 
-          <div className="login-buttons">
+          <div className='login-buttons'>
             {isLoggedIn ? (
               <>
-                <button onClick={toggleTheme} className="theme" alt="Toggle theme">
-                  {theme === "light" ? <MoonFill /> : <SunFill />}
+                <button onClick={toggleTheme} className='theme' alt='Toggle theme'>
+                  {theme === 'light' ? <MoonFill /> : <SunFill />}
                 </button>
 
-                <Link to="/Profile">
-                  <button className="profile">
+                <Link to='/Profile'>
+                  <button className='profile'>
                     <p>{username}</p>
 
                     <div className='user-picture'>
                       <img src={getImageSrc(userImage)}
-                      alt="Link to user profile"
+                      alt='Link to user profile'
                       />
                     </div>
                   </button>
                 </Link>
 
-                <button onClick={handleLogout} className="login">
+                <button onClick={handleLogout} className='login'>
                   Logout
                 </button>
               </>
             ) : (
               <>
-                <button onClick={toggleTheme} className="theme" alt="Toggle Theme">
-                  {theme === "light" ? <MoonFill /> : <SunFill />}
+                <button onClick={toggleTheme} className='theme' alt='Toggle Theme'>
+                  {theme === 'light' ? <MoonFill /> : <SunFill />}
                 </button>
 
-                <button onClick={showLoginWindow} className="login">
+                <button onClick={showLoginWindow} className='login'>
                   Login
                 </button>
 
-                <button onClick={showSignUpWindow} className="sign-up">
+                <button onClick={showSignUpWindow} className='sign-up'>
                   Sign Up
                 </button>
               </>
             )}
           </div>
 
-          <div onClick={showMobileMenu} className="mobile-menu-toggle">
+          <div onClick={showMobileMenu} className='mobile-menu-toggle'>
             <List />
           </div>
           
         </header>
       </div>
 
-      <div className={mobileMenu ? "mobile-menu" : "mobile-menu hidden"}>
+      <div className={mobileMenu ? 'mobile-menu' : 'mobile-menu hidden'}>
         <MobileMenu {...mobileMenuProps} />
       </div>
 
-      <div className="nav-wrapper">
+      <div className='nav-wrapper'>
         <nav>
           <div>
             <ul>
-              <Link to="/All">
-                <li className={activeTab === "/All" ? "active" : " "}>
+              <Link to='/All'>
+                <li className={activeTab === '/All' ? 'active' : ''}>
                   All Posts
                 </li>
               </Link>
 
-              <Link to="/Development">
-                <li className={activeTab === "/Development" ? "active" : " "}>
+              <Link to='/Development'>
+                <li className={activeTab === '/Development' ? 'active' : ''}>
                   Development
                 </li>
               </Link>
 
-              <Link to="/Admin">
-                <li className={activeTab === "/Admin" ? "active" : " "}>
+              <Link to='/Admin'>
+                <li className={activeTab === '/Admin' ? 'active' : ''}>
                   Admin
                 </li>
               </Link>
 
-              <Link to="/Design">
-                <li className={activeTab === "/Design" ? "active" : " "}>
+              <Link to='/Design'>
+                <li className={activeTab === '/Design' ? 'active' : ''}>
                   Design
                 </li>
               </Link>
             </ul>
           </div>
 
-          <div className="search" alt="Search">
+          <div className='search' alt='Search'>
             <Searchbar
               {...mobileMenuProps}
               setPosts={setPosts}
@@ -140,7 +141,7 @@ function header({
             />
           </div>
 
-          {loginToken ? <NewPostButton /> : ""}
+          {loginToken ? <NewPostButton /> : ''}
         </nav>
       </div>
     </>

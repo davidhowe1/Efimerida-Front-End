@@ -189,7 +189,6 @@ function App() {
   }, [])
 
 
-
   const fetchTagData = async () => {
     try {
       const response = await fetch('http://127.0.0.1:8000/post/tag_list/', options)
@@ -201,7 +200,8 @@ function App() {
   } 
 
   const [tags, setTags] = useState([])
-  const [activeTab, setActiveTab] = useState('All')
+  
+  const [activeTab, setActiveTab] = useState('/All')
   const currentPageURL = window.location.pathname;
 
   const handleTabChange = () => { setActiveTab(currentPageURL), setMobileMenu(false) }
@@ -289,6 +289,7 @@ function App() {
     showLoginWindow,
     showSignUpWindow,
     activeTab,
+    handleTabChange,
     setPosts,
     handleAlertMessage,
     mobileMenu,

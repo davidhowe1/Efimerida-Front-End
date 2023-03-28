@@ -64,15 +64,12 @@ function Subscriptions({
                                 <div className="image-container">
                                     {renderProfileImages(user.user_image)}
                                 </div>
-                                <h1>{user.username}</h1>
+                                <p>{user.username}</p>
                             </span>
 
-                            <span>
-                                <Link key={user.id} to={userId === user.id
-                                    ? `/Profile` : `/User/${user.id}`
-                                    }>
-
-                                    <button className="new-post">Visit Profile</button>
+                            <span className='button-container'>
+                                <Link key={user.id} to={userId === user.id? `/Profile` : `/User/${user.id}`}>
+                                    <button className="new-post">Profile</button>
                                 </Link>
 
                                 <button onClick={handleUnsubscribe} className="unsubscribe">
