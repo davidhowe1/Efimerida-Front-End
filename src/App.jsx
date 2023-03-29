@@ -104,7 +104,10 @@ function App() {
   
   const fetchPosts = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/post/list/?format=json', options)
+      const response = await fetch('http://127.0.0.1:8000/post/list/', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', },
+      })
       const data = await response.json()
       setPosts(data.results)
     } catch (error) {
