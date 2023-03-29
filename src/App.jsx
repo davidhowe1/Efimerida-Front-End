@@ -106,7 +106,7 @@ function App() {
     try {
       const response = await fetch('http://127.0.0.1:8000/post/list/', {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json', },
+        headers: { 'Content-Type': 'application/json' },
       })
       const data = await response.json()
       setPosts(data.results)
@@ -194,7 +194,10 @@ function App() {
 
   const fetchTagData = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/post/tag_list/', options)
+      const response = await fetch('http://127.0.0.1:8000/post/tag_list/', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
+      })
       const data = await response.json()
       setTags(data.results)
     } catch (error) {

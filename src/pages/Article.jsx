@@ -45,8 +45,8 @@ function Article({
         headers: { 'Content-Type': 'application/json' }
       })
       const data = await response.json()
-      await setContent([data])
-      await setUserSubscribeId(data.post_author.id)
+      setContent([data])
+      setUserSubscribeId(data.post_author.id)
     } catch (error) {
       console.error(error)
     }
