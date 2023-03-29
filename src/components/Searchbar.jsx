@@ -40,10 +40,6 @@ function Searchbar({ setPosts, hideMobileMenu, mobileMenu }) {
     }
   }
 
-  useEffect(() => {
-    fetchSearchQuery();
-  }, []);
-
   return (
     <span className='search-bar-container'>
       <input 
