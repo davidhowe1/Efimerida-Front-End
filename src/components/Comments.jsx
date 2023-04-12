@@ -19,7 +19,7 @@ function Comments({
 
   const renderComments = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/post/comment/${id}`, {
+        const response = await fetch(`https://efimerida.herokuapp.com/post/comment/${id}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
@@ -35,7 +35,7 @@ function Comments({
   const postComment = async () => {
       if (token) {
           try {
-            const response = await fetch(`http://127.0.0.1:8000/post/comment/${id}/`, {
+            const response = await fetch(`https://efimerida.herokuapp.com/post/comment/${id}/`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

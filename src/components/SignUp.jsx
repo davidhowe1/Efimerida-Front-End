@@ -14,7 +14,7 @@ function SignUp({ hideSignUpWindow, showLoginWindow, handleAlertMessage }) {
     event.preventDefault()
     if (validateSignUp()) {
       try {
-        const response = await fetch('http://127.0.0.1:8000/user/registration/', {
+        const response = await fetch('https://efimerida.herokuapp.com/user/registration/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -27,6 +27,8 @@ function SignUp({ hideSignUpWindow, showLoginWindow, handleAlertMessage }) {
         if (response.ok) {
           setSignupComplete(true)
         } else {
+          const data = await response.json()
+          console.log(data)
           handleAlertMessage('Error: Registration Failed. Please try again.')
         }
       } catch (error) {

@@ -94,7 +94,7 @@ function App() {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/user/detail/${userId}`, options)
+      const response = await fetch(`https://efimerida.herokuapp.com/user/detail/${userId}`, options)
       const data = await response.json()
       saveDetailsToLocalStorage(data)
     } catch (error) {
@@ -104,7 +104,7 @@ function App() {
   
   const fetchPosts = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/post/list/', {
+      const response = await fetch('https://efimerida.herokuapp.com/post/list/', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })
@@ -124,7 +124,7 @@ function App() {
   const fetchUserList = async () => {
     if (loginToken) {
       try {
-        const response = await fetch('http://127.0.0.1:8000/user/get_subscribe/', options)
+        const response = await fetch('https://efimerida.herokuapp.com/user/get_subscribe/', options)
         const data = await response.json() 
         setUsers(data.results)
       } catch (error) {
@@ -137,10 +137,10 @@ function App() {
   const renderProfileImages = useMemo(() => (imageURL) => {
     if (!imageURL) {
       return <img src='https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png' alt='Authors Profile Picture'/>
-    } else if (imageURL.includes('http://127.0.0.1:8000')) {
+    } else if (imageURL.includes('https://efimerida.herokuapp.com')) {
       return <img src={imageURL} alt='Authors Profile Picture'/>
     } else {
-      return <img src={`http://127.0.0.1:8000/${imageURL}`} alt='Authors Profile Picture'/>
+      return <img src={`https://efimerida.herokuapp.com${imageURL}`} alt='Authors Profile Picture'/>
     }
   }, []);
 
@@ -148,7 +148,7 @@ function App() {
   const subscribeToUser = async (userId) => {
     if (loginToken) {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/user/subscribe/${userId}/`, {
+        const response = await fetch(`https://efimerida.herokuapp.com/user/subscribe/${userId}/`, {
           method: 'POST',
           headers: {
             'Authorization': `Token ${token}`,
@@ -170,7 +170,7 @@ function App() {
 
   const unsubscribeFromUser = async (userId) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/user/subscribe/${userId}/`, {
+      const response = await fetch(`https://efimerida.herokuapp.com/user/subscribe/${userId}/`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Token ${token}`,
@@ -194,7 +194,7 @@ function App() {
 
   const fetchTagData = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/post/tag_list/', {
+      const response = await fetch('https://efimerida.herokuapp.com/post/tag_list/', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       })
@@ -219,12 +219,12 @@ function App() {
 
   const getImageSrc = (userImage) => {
     if (userImage ) {
-      if (userImage.includes('http://127.0.0.1:8000')) {
+      if (userImage.includes('https://efimerida.herokuapp.com')) {
         return userImage;
       } else if (!userImage) {
         return 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
       } else {
-        return `http://127.0.0.1:8000/images/${userImage}`;
+        return `https://efimerida.herokuapp.com/images/${userImage}`;
       }
     } else {
       return 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'

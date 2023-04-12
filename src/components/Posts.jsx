@@ -53,9 +53,9 @@ function Posts({ posts, renderProfileImages }) {
                 <img
                   src={
                     post.post_image &&
-                    (post.post_image.startsWith("http://127.0.0.1:8000")
+                    (post.post_image.startsWith("https://efimerida.herokuapp.com")
                       ? post.post_image
-                      : `http://127.0.0.1:8000${post.post_image}`)
+                      : `https://efimerida.herokuapp.com${post.post_image}`)
                   }
                   alt=""
                 />

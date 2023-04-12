@@ -26,7 +26,7 @@ function Profile({
   const getUserData = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/user/detail/${userId}/`,
+        `https://efimerida.herokuapp.com/user/detail/${userId}/`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -43,7 +43,7 @@ function Profile({
 
   const fetchUserPosts = async (username) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/post/by_filter/`, {
+      const response = await fetch(`https://efimerida.herokuapp.com/post/by_filter/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -69,7 +69,7 @@ function Profile({
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/user/detail/${userId}/`, {
+        `https://efimerida.herokuapp.com/user/detail/${userId}/`, {
           method: 'PATCH',
           body: formData,
           headers: { Authorization: `Token ${token}` },
@@ -156,7 +156,7 @@ function Profile({
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/user/detail/${userId}/`, {
+        `https://efimerida.herokuapp.com/user/detail/${userId}/`, {
           method: "PATCH",
           body: formData,
           headers: { Authorization: `Token ${token}` }

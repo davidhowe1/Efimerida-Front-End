@@ -54,7 +54,7 @@ function NewPost({ handleAlertMessage, loginToken }) {
     formData.append('post_tags', parseInt(tags))
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/post/list/', {
+      const response = await fetch('https://efimerida.herokuapp.com/post/list/', {
         method: 'POST',
         headers: { 'Authorization': `Token ${token}` },
         body: formData

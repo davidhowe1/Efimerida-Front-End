@@ -18,8 +18,7 @@ function Login({
     event.preventDefault();
     if (validateLogin()) {
       try {
-        const response = await fetch(
-          "http://127.0.0.1:8000/user/authentication/",
+        const response = await fetch('https://efimerida.herokuapp.com/user/authentication/',
           {
             method: "POST",
             headers: {

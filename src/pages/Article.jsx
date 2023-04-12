@@ -40,7 +40,7 @@ function Article({
 
   const renderPostContent = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/post/detail/${id}/`, {
+      const response = await fetch(`https://efimerida.herokuapp.com/post/detail/${id}/`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       })
@@ -55,7 +55,7 @@ function Article({
   const likeCurrentPost = async () => {
     if (token) {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/post/like/${id}/`, {
+        const response = await fetch(`https://efimerida.herokuapp.com/post/like/${id}/`, {
           method: 'POST',
           headers: {
             Authorization: `Token ${token}`,
@@ -75,7 +75,7 @@ const deletePost = async (event) => {
   event.preventDefault()
   if (confirm('Are you sure you want to delete this post?')) {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/post/detail/${id}`, {
+      const response = await fetch(`https://efimerida.herokuapp.com/post/detail/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Token ${token}`,
@@ -139,9 +139,9 @@ const deletePost = async (event) => {
                 <div className='article-body'>
                   <img
                     src={
-                      article.post_image.includes('http://127.0.0.1:8000')
+                      article.post_image.includes('https://efimerida.herokuapp.com')
                         ? article.post_image
-                        : `http://127.0.0.1:8000${article.post_image}`
+                        : `https://efimerida.herokuapp.com${article.post_image}`
                     }
                     alt=''
                   />
